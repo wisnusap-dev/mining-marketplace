@@ -1,0 +1,59 @@
+<?php 
+session_start();
+// 1. Keluar satu folder untuk akses database
+include "../config/database.php"; 
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Produk Tambang</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Tambahan agar tampilan tetap rapi di folder baru */
+        .product-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .btn-cart { background: #d4aa61; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9rem; }
+        .btn-buy { background: #3d2b1f; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <nav class="gen-nav">
+        <ul id="gen-menu">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="products.php">Products</a></li>
+            <li><a href="cart.php">🛒 Keranjang (<?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>)</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1 class="main-title" style="color: #3d2b1f; text-align: center; margin-top: 30px;">Produk Tambang Unggulan</h1>
+        <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 20px;">
+            <?php
+            $query = mysqli_query($conn, "SELECT * FROM products");
+            while($row = mysqli_fetch_assoc($query)){
+            ?>
+            <div class="product-card" style="background: #fff; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div class="product-image">
+                    <img src="../images/products/<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>">
+                </div>
+                <div class="product-info" style="margin-top: 15px;">
+                    <h3 style="margin: 0; color: #3d2b1f;"><?php echo $row['name']; ?></h3>
+                    <p class="desc" style="font-size: 13px; color: #777; height: 40px; overflow: hidden;"><?php echo $row['description']; ?></p>
+                    <p class="price" style="font-weight: bold; color: #d4aa61; font-size: 1.1rem;">Rp <?php echo number_format($row['price'], 0, ',', '.'); ?></p>
+                    <div class="action-buttons" style="display: flex; gap: 10px; margin-top: 15px;">
+                        <a href="cart.php?id=<?php echo $row['id']; ?>" class="btn-cart">🛒 + Keranjang</a>
+                        <a href="checkout.php?id=<?php echo $row['id']; ?>" class="btn-buy">Beli Langsung</a>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+</body>
+</html>

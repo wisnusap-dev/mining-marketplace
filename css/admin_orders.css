@@ -1,0 +1,147 @@
+/* --- RESET & BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #3d2b1f; /* Warna Cokelat Tambang */
+    font-family: 'Poppins', sans-serif;
+    padding: 30px 15px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* --- HEADER HALAMAN --- */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 20px 30px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.btn-back {
+    text-decoration: none;
+    color: #d4aa61;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 5px;
+    transition: 0.3s;
+}
+
+.btn-back:hover { color: #3d2b1f; }
+
+.page-header h1 {
+    font-size: 22px;
+    color: #3d2b1f;
+}
+
+.btn-print {
+    background: #3d2b1f;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-print:hover { background: #d4aa61; }
+
+/* --- TABEL CARD --- */
+.table-card {
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.modern-table th {
+    background-color: #fcfaf7;
+    padding: 18px 25px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #8d6e63;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #eee;
+}
+
+.modern-table td {
+    padding: 18px 25px;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.modern-table tr:hover { background-color: #fffaf0; }
+
+.price { font-weight: 700; color: #3d2b1f; }
+
+/* --- BADGE STATUS --- */
+.badge {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.badge.success { background: #e8f5e9; color: #2e7d32; }
+.badge.pending { background: #fff3e0; color: #ef6c00; }
+.badge.cancelled { background: #ffebee; color: #c62828; }
+
+/* --- TOMBOL AKSI --- */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-action {
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    transition: 0.3s;
+}
+
+.btn-accept { background-color: #2e7d32; }
+.btn-accept:hover { background-color: #1b5e20; transform: translateY(-2px); }
+
+.btn-reject { background-color: #c62828; }
+.btn-reject:hover { background-color: #b71c1c; transform: translateY(-2px); }
+
+.text-muted {
+    font-size: 12px;
+    color: #9e9e9e;
+    font-style: italic;
+}
+
+/* --- EMPTY STATE --- */
+.empty-state {
+    text-align: center;
+    padding: 60px !important;
+    color: #9e9e9e;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .table-card { overflow-x: auto; }
+}

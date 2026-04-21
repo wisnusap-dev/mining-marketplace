@@ -1,0 +1,28 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; color: #333; }
+
+/* Navigasi */
+.gen-nav { background: linear-gradient(90deg, #0039f5, #0051ff); min-height: 70px; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 100; }
+.gen-nav ul { display: flex; list-style: none; }
+.gen-nav ul li a { color: white; text-decoration: none; padding: 0 20px; font-weight: bold; text-transform: uppercase; }
+
+/* Katalog Grid */
+.container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+.main-title { text-align: center; margin-bottom: 30px; color: #0039f5; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.product-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+.product-image img { width: 100%; height: 200px; object-fit: cover; display: block; }
+.product-info { padding: 20px; flex-grow: 1; }
+.price { font-weight: bold; color: #0039f5; font-size: 1.2rem; margin: 10px 0; }
+.action-buttons { display: flex; gap: 10px; }
+.btn-cart, .btn-buy { flex: 1; padding: 10px; text-align: center; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+.btn-cart { border: 1px solid #0039f5; color: #0039f5; }
+.btn-buy { background: #0039f5; color: white; }
+
+/* Form Checkout */
+.checkout-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+.order-summary { background: #f8faff; padding: 15px; border-radius: 10px; border-left: 5px solid #0039f5; margin-bottom: 20px; }
+.form-group { margin-bottom: 15px; text-align: left; }
+.form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; }
+.btn-confirm { background: #28a745; color: white; border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
