@@ -1,12 +1,10 @@
 <?php 
 session_start();
-// 1. Keluar satu folder untuk ambil database
 include "../config/database.php"; 
 
 $items = [];
 $total_bayar = 0;
 
-// Logika 1: Jika beli langsung (hanya 1 ID dari URL)
 if(isset($_GET['id'])) {
     $id = mysqli_real_escape_string($conn, $_GET['id']);
     $query = mysqli_query($conn, "SELECT * FROM products WHERE id = '$id'");
@@ -15,7 +13,6 @@ if(isset($_GET['id'])) {
         $total_bayar = $row['price'];
     }
 } 
-// Logika 2: Jika beli dari keranjang (banyak ID dari Session)
 elseif(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     $ids = implode(',', $_SESSION['cart']);
     $query = mysqli_query($conn, "SELECT * FROM products WHERE id IN ($ids)");
@@ -24,8 +21,7 @@ elseif(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $total_bayar += $row['price'];
     }
 } else {
-    // 2. Redirect ke products.php yang ada di folder luar
-    echo "<script>alert('Pilih produk terlebih dahulu!'); window.location.href='../products.php';</script>";
+    echo "<script>alert('Pilih produk terlebih dahulu!'); window.location.href='products.php';</script>";
     exit();
 }
 ?>
@@ -37,17 +33,24 @@ elseif(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <ul id="gen-menu">
-    <li><a href="index.php">Home</a></li>
-    <li><a href="products.php">Products</a></li> 
-    <li><a href="about.php">About</a></li>
-    <li><a href="contact.php">Contact Us</a></li>
-    <li><a href="cart.php">Cart</a></li>
-</ul>
-    <div class="container">
-        <h1 class="main-title">Form Checkout</h1>
-        
-        <div class="checkout-container">
+<nav class="gen-nav" id="gen-nav">
+  <button class="gen-hamburger" id="gen-ham" aria-label="Toggle menu">
+    <span></span><span></span><span></span><span></span>
+  </button>
+  
+  <ul id="gen-menu">
+      <li><a href="index.php">Home</a></li>
+      <li><a href="products.php">Products</a></li> 
+      <li><a href="about.php">About</a></li>
+      <li><a href="contact.php">Contact Us</a></li>
+      <li><a href="cart.php">Keranjang</a></li>
+      <li style="margin-left: 20px;"><a href="../logout.php" style="color: #ff4d4d;">Logout</a></li>
+  </ul>
+</nav>
+
+    <div class="container" style="margin-top: 30px;">
+        <h1 class="main-title" style="text-align: center;">Form Checkout</h1>
+        <div class="checkout-container" style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 10px;">
             <div class="order-summary">
                 <strong>Ringkasan Pesanan:</strong><br>
                 <ul style="list-style: none; padding: 10px 0;">
@@ -65,25 +68,26 @@ elseif(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                 </div>
             </div>
 
-            <form action="proses_checkout.php" method="POST">
-                <div class="form-group">
-                    <label>Nama Lengkap</label>
-                    <input type="text" name="nama_pembeli" placeholder="Nama Anda" required>
+            <form action="proses_checkout.php" method="POST" style="margin-top: 20px;">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Nama Lengkap</label><br>
+                    <input type="text" name="nama_pembeli" placeholder="Nama Anda" required style="width: 100%; padding: 8px;">
                 </div>
-                <div class="form-group">
-                    <label>Alamat Pengiriman</label>
-                    <textarea name="alamat" rows="3" placeholder="Alamat Lengkap..." required></textarea>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Alamat Pengiriman</label><br>
+                    <textarea name="alamat" rows="3" placeholder="Alamat Lengkap..." required style="width: 100%; padding: 8px;"></textarea>
                 </div>
-                <div class="form-group">
-                    <label>Metode Pembayaran</label>
-                    <select name="metode_bayar" required>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Metode Pembayaran</label><br>
+                    <select name="metode_bayar" required style="width: 100%; padding: 8px;">
                         <option value="va">Virtual Account</option>
                         <option value="transfer">Transfer Bank</option>
                     </select>
                 </div>
+                <!-- INI PENTING UNTUK PROSES_CHECKOUT -->
                 <input type="hidden" name="total_harga" value="<?php echo $total_bayar; ?>">
                 
-                <button type="submit" class="btn-confirm" style="background: #3d2b1f;">Konfirmasi & Bayar</button>
+                <button type="submit" class="btn-confirm" style="background: #3d2b1f; color: white; width: 100%; padding: 10px; border: none; cursor: pointer;">Konfirmasi & Bayar</button>
             </form>
         </div>
     </div>

@@ -1,6 +1,5 @@
 <?php 
 session_start();
-// 1. Keluar satu folder untuk akses database
 include "../config/database.php"; 
 ?>
 <!DOCTYPE html>
@@ -11,25 +10,28 @@ include "../config/database.php";
     <title>Katalog Produk Tambang</title>
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        /* Tambahan agar tampilan tetap rapi di folder baru */
-        .product-image img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
+        .product-image img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
         .btn-cart { background: #d4aa61; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9rem; }
         .btn-buy { background: #3d2b1f; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
-    <nav class="gen-nav">
-        <ul id="gen-menu">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="products.php">Products</a></li>
-            <li><a href="cart.php">🛒 Keranjang (<?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>)</a></li>
-        </ul>
-    </nav>
+
+<nav class="gen-nav" id="gen-nav">
+  <button class="gen-hamburger" id="gen-ham" aria-label="Toggle menu">
+    <span></span><span></span><span></span><span></span>
+  </button>
+  
+  <ul id="gen-menu">
+      <li><a href="index.php">Home</a></li>
+      <li><a href="products.php">Products</a></li> 
+      <li><a href="about.php">About</a></li>
+      <li><a href="contact.php">Contact Us</a></li>
+      <li><a href="cart.php">Keranjang</a></li>
+      <li style="margin-left: 20px;"><a href="../logout.php" style="color: #ff4d4d;">Logout</a></li>
+  </ul>
+</nav>
+
 
     <div class="container">
         <h1 class="main-title" style="color: #3d2b1f; text-align: center; margin-top: 30px;">Produk Tambang Unggulan</h1>

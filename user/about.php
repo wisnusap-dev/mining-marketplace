@@ -1,7 +1,5 @@
 <?php
 session_start();
-// Tetap sertakan database jika ingin menampilkan data dinamis, 
-// tapi gunakan ../ karena file ini di dalam folder 'user'
 include "../config/database.php"; 
 ?>
 <!DOCTYPE html>
@@ -14,7 +12,7 @@ include "../config/database.php";
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #3d2b1f; /* Warna cokelat tambang khas kamu */
+            background-color: #3d2b1f; 
             font-family: 'Poppins', sans-serif;
             color: #fff;
             display: flex;
@@ -33,14 +31,8 @@ include "../config/database.php";
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             margin: 20px;
         }
-        .about-card h1 {
-            color: #3d2b1f;
-            margin-bottom: 20px;
-        }
-        .about-card p {
-            line-height: 1.8;
-            color: #666;
-        }
+        .about-card h1 { color: #3d2b1f; margin-bottom: 20px; }
+        .about-card p { line-height: 1.8; color: #666; }
         .btn-back {
             display: inline-block;
             margin-top: 25px;
@@ -52,20 +44,26 @@ include "../config/database.php";
             font-weight: 600;
             transition: 0.3s;
         }
-        .btn-back:hover {
-            background: #3d2b1f;
-            transform: translateY(-3px);
-        }
+        .btn-back:hover { background: #3d2b1f; transform: translateY(-3px); }
     </style>
 </head>
 <body>
+
+<nav class="gen-nav" id="gen-nav">
+  <button class="gen-hamburger" id="gen-ham" aria-label="Toggle menu">
+    <span></span><span></span><span></span><span></span>
+  </button>
+  
   <ul id="gen-menu">
-    <li><a href="index.php">Home</a></li>
-    <li><a href="products.php">Products</a></li> 
-    <li><a href="about.php">About</a></li>
-    <li><a href="contact.php">Contact Us</a></li>
-    <li><a href="cart.php">Cart</a></li>
-</ul>
+      <li><a href="index.php">Home</a></li>
+      <li><a href="products.php">Products</a></li> 
+      <li><a href="about.php">About</a></li>
+      <li><a href="contact.php">Contact Us</a></li>
+      <li><a href="cart.php">Keranjang</a></li>
+      <li style="margin-left: 20px;"><a href="../login.php" style="color: #ff4d4d;">Logout</a></li>
+  </ul>
+</nav>
+
     <div class="about-card">
         <h1>Tentang Mining Market</h1>
         <p>
@@ -77,9 +75,7 @@ include "../config/database.php";
             Proyek ini dikembangkan oleh <strong>Muhammad Fahmi</strong> sebagai bagian dari tugas 
             akademik di Universitas Pamulang, Teknik Informatika.
         </p>
-        
-        <a href="../index.php" class="btn-back">Kembali ke Beranda</a>
+        <a href="index.php" class="btn-back">Kembali ke Beranda</a>
     </div>
-
 </body>
 </html>
