@@ -31,21 +31,26 @@ elseif(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     <meta charset="UTF-8">
     <title>Checkout - Konfirmasi Pembayaran</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
-<nav class="gen-nav" id="gen-nav">
-  <button class="gen-hamburger" id="gen-ham" aria-label="Toggle menu">
-    <span></span><span></span><span></span><span></span>
-  </button>
-  
-  <ul id="gen-menu">
-      <li><a href="index.php">Home</a></li>
-      <li><a href="products.php">Products</a></li> 
-      <li><a href="about.php">About</a></li>
-      <li><a href="contact.php">Contact Us</a></li>
-      <li><a href="cart.php">Keranjang</a></li>
-      <li style="margin-left: 20px;"><a href="../logout.php" style="color: #ff4d4d;">Logout</a></li>
-  </ul>
+<<nav class="gen-nav">
+    <!-- Tombol Hamburger -->
+    <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+    
+    <!-- Menu Navigasi -->
+    <ul id="gen-menu">
+        <li><a href="index.php">Home</a></li>
+        <li><a href="products.php">Products</a></li> 
+        <li><a href="about.php">About</a></li>
+        <li><a href="contact.php">Contact Us</a></li>
+        <li><a href="cart.php">Keranjang</a></li>
+        <li><a href="../logout.php" style="color: #ff4d4d;">Logout</a></li>
+    </ul>
 </nav>
 
     <div class="container" style="margin-top: 30px;">
@@ -91,5 +96,6 @@ elseif(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             </form>
         </div>
     </div>
+    <script src="../js/navbar.js"></script>
 </body>
 </html>

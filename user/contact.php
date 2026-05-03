@@ -10,98 +10,28 @@ include "../config/database.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Mining Market</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/contact.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #3d2b1f; /* Cokelat khas tambang */
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .contact-container {
-            background: #fff;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            max-width: 900px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        .contact-info h2 {
-            color: #3d2b1f;
-            margin-bottom: 20px;
-        }
-        .contact-info p {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        .info-item {
-            margin-top: 20px;
-        }
-        .info-item strong {
-            display: block;
-            color: #d4aa61;
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-        }
-        .btn-send {
-            background: #3d2b1f;
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            width: 100%;
-            transition: 0.3s;
-        }
-        .btn-send:hover {
-            background: #d4aa61;
-        }
-        .btn-back {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            text-decoration: none;
-            color: #888;
-            font-size: 13px;
-        }
-
-        /* Responsif untuk HP */
-        @media (max-width: 768px) {
-            .contact-container { grid-template-columns: 1fr; }
-        }
-    </style>
 </head>
 <body>
-<nav class="gen-nav" id="gen-nav">
-  <button class="gen-hamburger" id="gen-ham" aria-label="Toggle menu">
-    <span></span><span></span><span></span><span></span>
-  </button>
-  
-  <ul id="gen-menu">
-      <li><a href="index.php">Home</a></li>
-      <li><a href="products.php">Products</a></li> 
-      <li><a href="about.php">About</a></li>
-      <li><a href="contact.php">Contact Us</a></li>
-      <li><a href="cart.php">Keranjang</a></li>
-      <li style="margin-left: 20px;"><a href="../logout.php" style="color: #ff4d4d;">Logout</a></li>
-  </ul>
+<nav class="gen-nav">
+    <!-- Tombol Hamburger -->
+    <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+    
+    <!-- Menu Navigasi -->
+    <ul id="gen-menu">
+        <li><a href="index.php">Home</a></li>
+        <li><a href="products.php">Products</a></li> 
+        <li><a href="about.php">About</a></li>
+        <li><a href="contact.php">Contact Us</a></li>
+        <li><a href="cart.php">Keranjang</a></li>
+        <li><a href="../logout.php" style="color: #ff4d4d;">Logout</a></li>
+    </ul>
 </nav>
 
     <div class="contact-container">
@@ -133,6 +63,6 @@ include "../config/database.php";
             </form>
         </div>
     </div>
-
+<script src="../js/navbar.js"></script>
 </body>
 </html>

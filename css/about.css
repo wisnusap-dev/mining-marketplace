@@ -1,0 +1,22 @@
+.about-body { background-color: #3d2b1f; }
+
+.about-wrapper { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 80vh; 
+    padding: 20px; 
+}
+
+.about-card { 
+    background: white; 
+    padding: 40px; 
+    border-radius: 20px; 
+    max-width: 600px; 
+    text-align: center; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+}
+
+@media (max-width: 768px) {
+    .about-card { padding: 20px; margin: 10px; }
+}

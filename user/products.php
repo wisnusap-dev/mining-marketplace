@@ -9,27 +9,34 @@ include "../config/database.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katalog Produk Tambang</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
     <style>
         .product-image img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
         .btn-cart { background: #d4aa61; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9rem; }
         .btn-buy { background: #3d2b1f; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9rem; }
     </style>
+
 </head>
 <body>
 
-<nav class="gen-nav" id="gen-nav">
-  <button class="gen-hamburger" id="gen-ham" aria-label="Toggle menu">
-    <span></span><span></span><span></span><span></span>
-  </button>
-  
-  <ul id="gen-menu">
-      <li><a href="index.php">Home</a></li>
-      <li><a href="products.php">Products</a></li> 
-      <li><a href="about.php">About</a></li>
-      <li><a href="contact.php">Contact Us</a></li>
-      <li><a href="cart.php">Keranjang</a></li>
-      <li style="margin-left: 20px;"><a href="../logout.php" style="color: #ff4d4d;">Logout</a></li>
-  </ul>
+<nav class="gen-nav">
+    <!-- Tombol Hamburger -->
+    <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+    
+    <!-- Menu Navigasi -->
+    <ul id="gen-menu">
+        <li><a href="index.php">Home</a></li>
+        <li><a href="products.php">Products</a></li> 
+        <li><a href="about.php">About</a></li>
+        <li><a href="contact.php">Contact Us</a></li>
+        <li><a href="cart.php">Keranjang</a></li>
+        <li><a href="../logout.php" style="color: #ff4d4d;">Logout</a></li>
+    </ul>
+</nav>
 </nav>
 
 
@@ -57,5 +64,6 @@ include "../config/database.php";
             <?php } ?>
         </div>
     </div>
+    <script src="../js/navbar.js"></script>
 </body>
 </html>
