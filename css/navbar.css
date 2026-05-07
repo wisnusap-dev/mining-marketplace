@@ -1,9 +1,9 @@
 .gen-nav { 
-    background: linear-gradient(90deg, #0039f5, #0051ff); 
-    min-height: 70px; 
+    background: white;
+    min-height: 100px; 
     display: flex; 
     align-items: center; 
-    justify-content: center; 
+    justify-content: right; 
     position: sticky; 
     top: 0; 
     z-index: 1000;
@@ -12,34 +12,76 @@
 
 #gen-menu { display: flex; list-style: none; align-items: center; }
 #gen-menu li a { 
-    color: white; 
+    color: blue; 
     text-decoration: none; 
     padding: 10px 15px; 
     font-weight: bold; 
     text-transform: uppercase; 
-    font-size: 0.85rem;
+   font-size: large;
     transition: 0.3s;
+    
 }
 
-#gen-menu li a:hover { background: rgba(255, 255, 255, 0.2); border-radius: 5px; }
+#gen-menu li a:hover { background: blue; color: white; border-radius: 15px; }
 
 /* Hamburger Icon */
 .menu-toggle { display: none; flex-direction: column; cursor: pointer; }
-.menu-toggle .bar { width: 25px; height: 3px; background: white; margin: 3px 0; }
+.menu-toggle .bar { width: 25px; height: 3px; background: blue; margin: 3px 0; }
 
 @media (max-width: 768px) {
-    .gen-nav { justify-content: flex-end; }
-    .menu-toggle { display: flex; }
-    #gen-menu { 
-        display: none; 
-        flex-direction: column; 
-        position: absolute; 
-        top: 70px; 
-        left: 0; 
-        width: 100%; 
-        background: #0039f5; 
-        padding: 20px 0; 
+    .gen-nav {
+        padding: 0 20px;
     }
-    #gen-menu.active { display: flex; }
-    #gen-menu li { margin: 10px 0; }
+
+    #gen-menu {
+        display: none; /* Sembunyikan menu default */
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #0039f5; /* Sesuaikan warna navbar kamu */
+        padding: 20px 0;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    /* Munculkan menu saat class .active ditambahkan oleh JS */
+    #gen-menu.active {
+        display: flex;
+    }
+
+    #gen-menu li {
+        margin: 15px 0;
+    }
+
+    .menu-toggle {
+        display: block; /* Munculkan ikon hamburger */
+        cursor: pointer;
+    }
+}
+
+ 
+/* 1. Atur Container Navbarnya dulu agar Logo & Menu terpisah */
+.gen-nav {
+    display: flex;
+    justify-content: space-between; /* Logo di kiri, Menu di kanan */
+    align-items: center;            /* Logo lurus di tengah secara vertikal */
+    height: 70px;                   /* Tinggi navbar */
+    padding: 0 20px;                /* Jarak dari pinggir layar */
+}
+
+/* 2. Properti Khusus Logo */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-logo img {
+    height: 1000px;           /* Ukuran tinggi logo (sesuaikan dengan tinggi navbar) */
+    width: auto;            /* Lebar otomatis supaya tidak gepeng */
+    max-width: 150px;       /* Batas lebar maksimal agar tidak terlalu lebar */
+    object-fit: contain;    /* Memastikan gambar tetap dalam proporsi yang benar */
+    display: block;
 }

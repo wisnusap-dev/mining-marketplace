@@ -34,22 +34,24 @@ elseif(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
-<<nav class="gen-nav">
-    <!-- Tombol Hamburger -->
+<nav class="gen-nav">
+    <a href="index.php" class="nav-logo">
+        <img src="../logo/companies.png" alt="Mining Market Logo">
+    </a>
+
     <div class="menu-toggle" id="mobile-menu">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
     </div>
-    
-    <!-- Menu Navigasi -->
+
     <ul id="gen-menu">
         <li><a href="index.php">Home</a></li>
         <li><a href="products.php">Products</a></li> 
         <li><a href="about.php">About</a></li>
         <li><a href="contact.php">Contact Us</a></li>
         <li><a href="cart.php">Keranjang</a></li>
-        <li><a href="../logout.php" style="color: #ff4d4d;">Logout</a></li>
+        <li><a href="../logout.php" class="logout-btn">Logout</a></li>
     </ul>
 </nav>
 
