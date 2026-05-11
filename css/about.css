@@ -1,3 +1,8 @@
+body {
+    
+}
+
+
 .about-body { background-color: #3d2b1f; }
 
 .about-wrapper { 
@@ -6,6 +11,7 @@
     align-items: center; 
     min-height: 80vh; 
     padding: 20px; 
+   
 }
 
 .about-card { 
@@ -14,9 +20,30 @@
     border-radius: 20px; 
     max-width: 600px; 
     text-align: center; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+    box-shadow: 10px 30px 150px 50px rgba(0, 0, 0, 1);
 }
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    
+}
+
+.about-profile {
+   background: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    
+}
+
+
 
 @media (max-width: 768px) {
     .about-card { padding: 20px; margin: 10px; }
 }
+.about-card p {
+    text-align: left;
+}
+

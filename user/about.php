@@ -45,18 +45,42 @@ include "../config/database.php";
     <!-- WRAPPER UNTUK KARTU ABOUT -->
     <div class="about-wrapper">
         <div class="about-card">
-            <h1>Tentang Mining Market</h1>
+            <h1>PT MARLIN JAYA</h1>
             <p>
-                Selamat datang di <strong>Mining Market</strong>, platform marketplace terpercaya 
-                khusus untuk kebutuhan industri pertambangan. Kami menyediakan berbagai macam 
-                komoditas dan peralatan tambang berkualitas tinggi dengan sistem transaksi yang aman dan transparan.
+                PT Marlin Jaya Mesin bergerak di bidang industri manufaktur atau pengolahan, khususnya yang berkaitan dengan pengoperasian mesin-mesin industri.
             </p>
+            <br>
+            <br>
             <p>
-                Proyek ini dikembangkan oleh <strong>Muhammad Fahmi</strong> sebagai bagian dari tugas 
-                akademik di Universitas Pamulang, Teknik Informatika.
+                Nama Perusahaan : <strong>PT. Marlin Jaya Mesin</strong>
+                <br>
+                Alamat : Jl. Raya Perancis, Komp. Ruko Mutiara Kosambi 2 Blok A No. 42
+                <br>
+                Kota : TANGERANG
+                <br>
+                <a href="https://www.google.com/maps/place/PT.marlin+jaya+mesin/@-6.0986256,106.6843811,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a039b9a1eadd3:0x6f3c0db1d74aec3d!8m2!3d-6.0986256!4d106.686956!16s%2Fg%2F11vhr3yp3d?entry=ttu&g_ep=EgoyMDI2MDUwNi4wIKXMDSoASAFQAw%3D%3D">Link maps</a>
             </p>
             <a href="index.php" class="btn-back">Kembali ke Beranda</a>
         </div>
+    </div>
+
+    <div class="about-grid">
+    <div class="about-profile">
+        <h3>Apakah PT. Marlin Jaya Mesin merupakan perusahaan aktif?</h3>
+        <p>Ya. PT. Marlin Jaya Mesin terdaftar sebagai perusahaan yang aktif menurut catatan Companies House Indonesia.</p>
+    </div>
+    <div class="about-profile">
+        <h3>PT. Marlin Jaya Mesin berbadan hukum jenis apa?</h3>
+        <p>PT. Marlin Jaya Mesin terdaftar sebagai Perseroan Terbatas.</p>
+    </div>
+    <div class="about-profile">
+        <h3>Dimana PT. Marlin Jaya berlokasi?</h3>
+        <p>Alamat terdaftar PT. Marlin Jaya Mesin berada Jl. Raya Perancis, Komp. Ruko Mutiara Kosambi 2 Blok A No.42, TANGERANG, Indonesia.</p>
+    </div>
+    <div class="about-profile">
+        <h3>Siapa saja pemegang saham PT. Marlin Jaya Mesin?</h3>
+        <p>Pemegang saham PT. Marlin Jaya Mesin dapat diidentifikasi melalui laporan perusahaan yang tersedia di companieshouse.id. Laporan ini berisi informasi registrasi perusahaan Indonesia yang telah diverifikasi, termasuk struktur pemegang saham, modal saham, direksi, dan detail pemilik manfaat.</p>
+    </div>
     </div>
 
     <!-- Script untuk menjalankan Hamburger Menu di HP -->

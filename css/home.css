@@ -1,4 +1,9 @@
 /* Hero Section Styles */
+body {
+    
+
+}
+
 .hero-wrapper {
     position: relative;
     height: 85vh;
@@ -6,10 +11,12 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white;
-    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,57,245,0.3)), 
-                url('../assets/mining-bg.jpg') no-repeat center center/cover;
+    color: black;
     padding: 0 20px;
+    border-radius: 70px;
+    border: 2px solid #000000;
+    background: #ffff;
+    margin: 100px   ;
 }
 
 .hero-content h1 {
