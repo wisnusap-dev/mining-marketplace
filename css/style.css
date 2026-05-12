@@ -1,3 +1,304 @@
-@import url("global.css");
-@import url("navbar.css");
-@import url("about.css");
+/* ======================= RESET & GLOBAL ======================= */
+:root {
+    --bg-dark-brown: #332211;  /* Warna Navbar & Hero BG */
+    --bg-light-beige: #F5EFE6; /* Warna Latar Belakang Utama */
+    --primary-gold: #C0955B;   /* Warna Aksen Emas (Highlight) */
+    --text-white: #FFFFFF;
+    --text-dark: #332211;
+    --text-muted: #777777;
+    --card-white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-light-beige);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ======================= NAVBAR (Sesuai Referensi) ======================= */
+.gen-nav {
+    background-color: var(--bg-dark-brown);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    color: var(--text-white);
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#gen-menu {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 30px;
+}
+
+#gen-menu a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+#gen-menu a:hover, #gen-menu a.active {
+    color: var(--primary-gold);
+}
+
+.logout-btn {
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 20px;
+    border-radius: 5px;
+}
+
+.logout-btn:hover {
+    border-color: var(--primary-gold);
+    background-color: var(--primary-gold);
+    color: var(--text-dark) !important;
+}
+
+/* Hamburger (Sembunyi default) */
+.menu-toggle { display: none; }
+
+/* ======================= HERO SECTION (Referensi image_6.png) ======================= */
+.hero-section {
+    position: relative;
+    height: 90vh; /* Hampir satu layar penuh */
+    padding-top: 80px; /* Jarak untuk Navbar fixed */
+    display: flex;
+    align-items: center;
+    color: var(--text-white);
+    background-color: var(--bg-dark-brown);
+    /* Ganti URL dengan foto mesin tambang HD yang ada di portfolio kamu */
+    background: linear-gradient(135deg, rgba(34,22,10,0.95), rgba(34,22,10,0.85)), 
+                url('../assets/mining-hero-pattern.png') no-repeat center center/cover;
+}
+
+.hero-content {
+    z-index: 2;
+    position: relative;
+    max-width: 900px;
+}
+
+.badge-platform {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    color: var(--primary-gold);
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 10vw, 6rem); /* Responsive font size */
+    line-height: 1.1;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+}
+
+.hero-title .highlight {
+    color: var(--primary-gold);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+    font-weight: 300;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 40px;
+}
+
+.hero-welcome {
+    font-size: 1.1rem;
+    font-weight: 300;
+    max-width: 600px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.8);
+}
+
+.hero-welcome .accent {
+    color: var(--primary-gold);
+    font-weight: 600;
+}
+
+/* ======================= COUNTER SECTION (Referensi image_5.png) ======================= */
+.counter-section {
+    background-color: var(--bg-dark-brown);
+    padding: 60px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.counter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    text-align: center;
+}
+
+.counter-item {
+    padding: 20px;
+    color: var(--text-white);
+}
+
+/* Garis pembatas vertikal antar counter */
+.counter-item:not(:last-child) {
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.counter-item h2 {
+    font-family: 'Anton', sans-serif; /* Font Angka Tebal */
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--primary-gold);
+    margin-bottom: 5px;
+}
+
+.counter-item p {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+/* ======================= FEATURES SECTION (Referensi image_4.png) ======================= */
+.features-section {
+    background-color: var(--bg-light-beige);
+    padding: 100px 0;
+}
+
+.section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 70px;
+}
+
+.section-badge {
+    color: var(--primary-gold);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.section-main-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.section-desc {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* Feature Card */
+.feature-card {
+    background-color: var(--card-white);
+    padding: 50px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03); /* Soft shadow */
+    transition: 0.3s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    border-color: rgba(192, 149, 91, 0.3); /* Emas tipis */
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 25px;
+    display: block;
+}
+
+.feature-card h3 {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    color: var(--text-dark);
+}
+
+.feature-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* ======================= RESPONSIVE ======================= */
+
+/* Tablet & HP Landscape */
+@media (max-width: 992px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-container { padding: 0 30px; }
+}
+
+/* Smartphone Portrait */
+@media (max-width: 768px) {
+    /* Navbar Mobile */
+    #gen-menu { display: none; } /* Sembunyikan default */
+    .menu-toggle { display: block; } /* Munculkan hamburger */
+
+    /* Counter Mobile */
+    .counter-grid { grid-template-columns: repeat(2, 1fr); }
+    .counter-item:nth-child(2) { border-right: none; }
+    .counter-item:nth-child(even) { border-right: none; }
+    
+    /* Features Mobile */
+    .features-grid { grid-template-columns: 1fr; }
+    .section-header { margin-bottom: 40px; }
+    .feature-card { padding: 30px 20px; }
+}

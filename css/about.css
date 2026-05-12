@@ -1,49 +1,69 @@
-body {
-    
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --brown: #2c1a0e;
+  --brown-mid: #3d2b1f;
+  --gold: #c9973a;
+  --gold-light: #e8c070;
+  --cream: #fdf6ec;
+  --bg: #f5ede2;
+  --text-muted: #8a7060;
+  --white: #ffffff;
 }
 
+html { scroll-behavior: smooth; }
 
-.about-body { background-color: #3d2b1f; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--brown);
+}
 
-.about-wrapper { 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    min-height: 80vh; 
-    padding: 20px; 
+.about-wrapper {
+   text-align: left;
+   background: var(--brown-mid);
    
 }
 
-.about-card { 
-    background: white; 
-    padding: 40px; 
-    border-radius: 20px; 
-    max-width: 600px; 
-    text-align: center; 
-    box-shadow: 10px 30px 150px 50px rgba(0, 0, 0, 1);
-}
-
-.about-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-    
-}
-
-.about-profile {
-   background: white;
-    padding: 40px 30px;
-    border-radius: 20px;
-    
+.about-wrapper h1 {
+  display: ;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201,151,58,0.15);
+  border: 1px solid rgba(201,151,58,0.3);
+  color: var(--gold-light);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 100px;
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease both;
+  text-align: center;
 }
 
 
 
+/* ===== FOOTER ===== */
+footer {
+  background: var(--brown);
+  color: rgba(253,246,236,0.4);
+  text-align: center;
+  padding: 30px 40px;
+  font-size: 0.82rem;
+  border-top: 1px solid rgba(201,151,58,0.1);
+  letter-spacing: 1px;
+}
+
+footer span { color: var(--gold); }
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    .about-card { padding: 20px; margin: 10px; }
+  .navbar { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 100px 20px 60px; }
+  .stats-strip { padding: 20px; }
+  .section { padding: 60px 20px; }
+  .cta-banner { margin: 0 20px 60px; padding: 40px 30px; flex-direction: column; }
 }
-.about-card p {
-    text-align: left;
-}
-

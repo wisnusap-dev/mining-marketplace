@@ -1,87 +1,135 @@
-.gen-nav { 
-    background: white;
-    min-height: 100px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: right; 
-    position: sticky; 
-    top: 0; 
-    z-index: 1000;
-    padding: 0 20px;
+/* Tambahkan ini di bagian paling atas navbar.css */
+:root {
+  --brown: #2c1a0e;
+  --cream: #fdf6ec;
+  --gold: #c9973a;
+  --gold-light: #e4c185;
 }
 
-#gen-menu { display: flex; list-style: none; align-items: center; }
-#gen-menu li a { 
-    color: black; 
-    text-decoration: none; 
-    padding: 10px 15px; 
-    font-weight: bold; 
-    text-transform: uppercase; 
-   font-size: large;
-    transition: 0.3s;
-    
+
+
+/* ... sisa kode CSS navbar Anda sudah benar ... */
+
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 72px;
+  background: rgba(44,26,14,0.97);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(201,151,58,0.15);
 }
 
-#gen-menu li a:hover { background: black; color: white; border-radius: 15px; }
-
-/* Hamburger Icon */
-.menu-toggle { display: none; flex-direction: column; cursor: pointer; }
-.menu-toggle .bar { width: 25px; height: 3px; background: black; margin: 3px 0; }
-
-@media (max-width: 768px) {
-    .gen-nav {
-        padding: 0 20px;
-    }
-
-    #gen-menu {
-        display: none; /* Sembunyikan menu default */
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: black; /* Sesuaikan warna navbar kamu */
-        padding: 20px 0;
-        text-align: center;
-        z-index: 1000;
-    }
-
-    /* Munculkan menu saat class .active ditambahkan oleh JS */
-    #gen-menu.active {
-        display: flex;
-    }
-
-    #gen-menu li {
-        margin: 15px 0;
-    }
-
-    .menu-toggle {
-        display: block; /* Munculkan ikon hamburger */
-        cursor: pointer;
-    }
-}
-
- 
-/* 1. Atur Container Navbarnya dulu agar Logo & Menu terpisah */
-.gen-nav {
-    display: flex;
-    justify-content: space-between; /* Logo di kiri, Menu di kanan */
-    align-items: center;            /* Logo lurus di tengah secara vertikal */
-    height: 70px;                   /* Tinggi navbar */
-    padding: 0 20px;                /* Jarak dari pinggir layar */
-}
-
-/* 2. Properti Khusus Logo */
 .nav-logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.nav-logo img { height: 36px; width: auto; filter: brightness(10); }
+.nav-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  color: var(--cream);
 }
 
-.nav-logo img {
-    height: 1000px;           /* Ukuran tinggi logo (sesuaikan dengan tinggi navbar) */
-    width: auto;            /* Lebar otomatis supaya tidak gepeng */
-    max-width: 150px;       /* Batas lebar maksimal agar tidak terlalu lebar */
-    object-fit: contain;    /* Memastikan gambar tetap dalam proporsi yang benar */
-    display: block;
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+}
+.nav-links a {
+  display: block;
+  padding: 8px 18px;
+  color: rgba(253,246,236,0.6);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 18px; right: 18px;
+  height: 1px;
+  background: var(--gold);
+}
+.nav-links .cart-link {
+  position: relative;
+  color: var(--cream);
+  font-size: 1.1rem;
+  padding: 8px 14px;
+}
+.logout-btn {
+  margin-left: 8px;
+  background: transparent !important;
+  border: 1px solid rgba(201,151,58,0.4) !important;
+  border-radius: 4px;
+  color: var(--gold) !important;
+  padding: 6px 18px !important;
+  transition: background 0.2s, color 0.2s !important;
+}
+.logout-btn:hover {
+  background: var(--gold) !important;
+  color: var(--brown) !important;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--cream);
+  transition: all 0.3s;
+  border-radius: 2px;
+}
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 72px; left: 0; right: 0;
+  background: var(--brown);
+  padding: 20px;
+  z-index: 999;
+  border-bottom: 1px solid rgba(201,151,58,0.15);
+}
+.mobile-menu.open { display: block; }
+.mobile-menu a {
+  display: block;
+  padding: 14px 0;
+  color: rgba(253,246,236,0.7);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  letter-spacing: 1px;
+}
+.mobile-menu a:hover { color: var(--gold-light); }
+.mobile-menu .m-logout {
+  color: var(--gold);
+  border: none;
+  margin-top: 10px;
 }

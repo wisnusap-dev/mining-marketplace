@@ -1,46 +1,56 @@
 <?php
 session_start();
 // Tetap include database jika ingin menyimpan pesan saran ke tabel khusus nantinya
-include "../config/database.php"; 
+include "../config/database.php";
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Mining Market</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/contact.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
 </head>
+
 <body>
-<nav class="gen-nav">
-    <a href="index.php" class="nav-logo">
-        <img src="../logo/companies.png" alt="Mining Market Logo">
-    </a>
+    <nav class="navbar">
+  <a href="index.php" class="nav-logo">
+    <img src="../logo/companies.png" alt="Logo">
+    <span class="nav-brand">Mining Market</span>
+  </a>
 
-    <div class="menu-toggle" id="mobile-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </div>
+  <ul class="nav-links">
+    <li><a href="index.php">Home</a></li>
+    <li><a href="products.php">Products</a></li>
+    <li><a href="about.php" class="active">About</a></li> <li><a href="contact.php">Contact</a></li>
+    <li><a href="cart.php">🛒 Keranjang</a></li>
+    <li><a href="../logout.php" class="logout-btn">Logout</a></li>
+  </ul>
 
-    <ul id="gen-menu">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="products.php">Products</a></li> 
-        <li><a href="about.php">About</a></li>
-        <li><a href="contact.php">Contact Us</a></li>
-        <li><a href="cart.php">Keranjang</a></li>
-        <li><a href="../logout.php" class="logout-btn">Logout</a></li>
-    </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.php">Home</a>
+  <a href="products.php">Products</a>
+  <a href="about.php">About</a>
+  <a href="contact.php">Contact Us</a>
+  <a href="cart.php">🛒 Keranjang</a>
+  <a href="../logout.php" class="m-logout">Logout</a>
+</div>
+
+
 
     <div class="contact-container">
         <div class="contact-info">
             <h2>Hubungi Kami</h2>
             <p>Punya pertanyaan mengenai alat tambang atau status pesanan? Tim kami siap membantu Anda.</p>
-            
+
             <div class="info-item">
                 <strong>Alamat Kantor</strong>
                 <span>Universitas Pamulang, Tangerang Selatan</span>
@@ -65,6 +75,11 @@ include "../config/database.php";
             </form>
         </div>
     </div>
-<script src="../js/navbar.js"></script>
+     <footer>
+        &copy; 2025 <span>PT Marlinjaya Mesin</span> · Mining Market · All rights reserved
+    </footer>
+
+    <script src="../js/navbar.js"></script>
 </body>
+
 </html>

@@ -28,31 +28,30 @@ if (isset($_GET['remove'])) {
 <head>
     <meta charset="UTF-8">
     <title>Keranjang Belanja - Mining Market</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/cart.css">
     <link rel="stylesheet" href="../css/navbar.css">
     
 </head>
 <body>
 
-<nav class="gen-nav">
-    <a href="index.php" class="nav-logo">
-        <img src="../logo/companies.png" alt="Mining Market Logo">
-    </a>
+<nav class="navbar">
+  <a href="index.php" class="nav-logo">
+    <img src="../logo/companies.png" alt="Logo">
+    <span class="nav-brand">Mining Market</span>
+  </a>
 
-    <div class="menu-toggle" id="mobile-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </div>
+  <ul class="nav-links">
+    <li><a href="index.php">Home</a></li>
+    <li><a href="products.php">Products</a></li>
+    <li><a href="about.php">About</a></li>
+    <li><a href="contact.php">Contact</a></li>
+    <li><a href="cart.php" class="active">🛒 Keranjang</a></li> <li><a href="../logout.php" class="logout-btn">Logout</a></li>
+  </ul>
 
-    <ul id="gen-menu">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="products.php">Products</a></li> 
-        <li><a href="about.php">About</a></li>
-        <li><a href="contact.php">Contact Us</a></li>
-        <li><a href="cart.php">Keranjang</a></li>
-        <li><a href="../logout.php" class="logout-btn">Logout</a></li>
-    </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
 
 
@@ -93,6 +92,10 @@ if (isset($_GET['remove'])) {
             <?php endif; ?>
         </div>
     </div>
+     <footer>
+        &copy; 2025 <span>PT Marlinjaya Mesin</span> · Mining Market · All rights reserved
+    </footer>
+
     <script src="../js/navbar.js"></script>
 </body>
 </html>
