@@ -104,7 +104,7 @@ function filterProducts() {
   let visible = 0;
   cards.forEach(card => {
     const name = card.getAttribute('data-name');
-    if (name.includes(q)) { card.style.display = ''; visible++; }
+    if (name.includes(q)) { card.style.display  = ''; visible++; }
     else card.style.display = 'none';
   });
   document.getElementById('countDisplay').textContent = visible;

@@ -1,4 +1,11 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --brown: #2c1a0e;
   --brown-mid: #3d2b1f;
@@ -10,60 +17,97 @@
   --white: #ffffff;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
+/* 1. Paksa background body jadi cokelat juga supaya kalau ada celah
+      nggak kelihatan warna kremnya */
 body {
+  background-color: var(--brown);
+  margin: 0;
+  padding: 0;
   font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--brown);
 }
 
 .about-wrapper {
-   text-align: left;
-   background: var(--brown-mid);
-   
+  /* 2. Gunakan padding-top minimal sebesar tinggi navbar (72px) 
+        tambah sedikit space biar konten nggak nempel banget */
+  
+  background-color: var(--brown);
+
+  /* 3. INI KUNCINYA: Mencegah margin elemen di dalam (h1, p) 
+        bocor keluar dan bikin celah putih/krem */
+  display: flow-root;
+
 }
 
-.about-wrapper h1 {
-  display: ;
-  align-items: center;
-  gap: 8px;
-  background: rgba(201,151,58,0.15);
-  border: 1px solid rgba(201,151,58,0.3);
+/* 4. Pastikan tidak ada margin-top liar di elemen pertama */
+.about-wrapper h1,
+.about-wrapper .hero-section {
+ 
   color: var(--gold-light);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 8px 16px;
-  border-radius: 100px;
-  margin-bottom: 32px;
-  animation: fadeUp 0.6s ease both;
-  text-align: center;
+  text-align: left;
+  font-size: 50px;
+  overflow: hidden;
+  padding-left: 20px;
+
 }
 
+.about-card  p {
+  border: 1px solid var(--cream);
+  background: var(--cream);
+  padding-bottom: 5px;
+  margin-top: 10px;
+  padding: 0;
+  
 
+}
 
 /* ===== FOOTER ===== */
 footer {
   background: var(--brown);
-  color: rgba(253,246,236,0.4);
+  color: rgba(253, 246, 236, 0.4);
   text-align: center;
   padding: 30px 40px;
   font-size: 0.82rem;
-  border-top: 1px solid rgba(201,151,58,0.1);
+  border-top: 1px solid rgba(201, 151, 58, 0.1);
   letter-spacing: 1px;
 }
 
-footer span { color: var(--gold); }
+footer span {
+  color: var(--gold);
+}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .navbar { padding: 0 20px; }
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  .hero { padding: 100px 20px 60px; }
-  .stats-strip { padding: 20px; }
-  .section { padding: 60px 20px; }
-  .cta-banner { margin: 0 20px 60px; padding: 40px 30px; flex-direction: column; }
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .hero {
+    padding: 100px 20px 60px;
+  }
+
+  .stats-strip {
+    padding: 20px;
+  }
+
+  .section {
+    padding: 60px 20px;
+  }
+
+  .cta-banner {
+    margin: 0 20px 60px;
+    padding: 40px 30px;
+    flex-direction: column;
+  }
 }

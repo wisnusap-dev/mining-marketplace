@@ -51,13 +51,10 @@ include "../config/database.php";
 <!-- WRAPPER UNTUK KARTU ABOUT -->
     <div class="about-wrapper">
         <div class="about-card">
-            <h1>PT MARLIN JAYA</h1>
+            <h1>TENTANG <br> KAMI</h1>
             <p>
                 PT Marlin Jaya Mesin bergerak di bidang industri manufaktur atau pengolahan, khususnya yang berkaitan dengan pengoperasian mesin-mesin industri.
-            </p>
-            <br>
-            <br>
-            <p>
+                <br>
                 Nama Perusahaan : <strong>PT. Marlin Jaya Mesin</strong>
                 <br>
                 Alamat : Jl. Raya Perancis, Komp. Ruko Mutiara Kosambi 2 Blok A No. 42
