@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_id'])) {
 <title>PT.MARLIN JAYA MESIN</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/home.css">
-<link rel="stylesheet" href="../css/navbar.css"
+<link rel="stylesheet" href="../css/navbar.css">
 <style>
 
 </style>

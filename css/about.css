@@ -1,250 +1,194 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
-  --brown: #2c1a0e;
-  --brown-mid: #3d2b1f;
-  --gold: #c9973a;
-  --gold-light: #e8c070;
-  --cream: #fdf6ec;
-  --bg: #f5ede2;
-  --text-muted: #8a7060;
-  --white: #ffffff;
+    --brown: #2c1a0e;
+    --brown-mid: #3d2b1f;
+    --gold: #c9973a;
+    --gold-light: #e8c070;
+    --cream: #fdf6ec;
+    --bg: #f5ede2;
+    --text-muted: #8a7060;
+    --white: #ffffff;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-/* 1. Paksa background body jadi cokelat juga supaya kalau ada celah
-      nggak kelihatan warna kremnya */
 body {
-  background-color: var(--brown);
-  margin: 0;
-  padding: 0;
-  font-family: 'DM Sans', sans-serif;
+    background-color: var(--brown);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white);
+    overflow-x: hidden; /* Mencegah body ikutan scroll horizontal */
 }
 
+/* ABOUT WRAPPER */
 .about-wrapper {
-  /* 2. Gunakan padding-top minimal sebesar tinggi navbar (72px) 
-        tambah sedikit space biar konten nggak nempel banget */
-  
-  background-color: var(--brown);
-
-  /* 3. INI KUNCINYA: Mencegah margin elemen di dalam (h1, p) 
-        bocor keluar dan bikin celah putih/krem */
-  display: flow-root;
-
+    padding-top: 100px;
+    background-color: var(--brown);
+    display: flow-root;
+    min-height: 100vh;
 }
 
-/* 4. Pastikan tidak ada margin-top liar di elemen pertama */
-.about-wrapper h1,
-.about-wrapper .hero-section {
- 
-  color: var(--gold-light);
-  text-align: left;
-  font-size: 50px;
-  overflow: hidden;
-  padding-left: 20px;
-
+.about-card {
+    padding: 0 40px;
+    margin-bottom: 30px;
 }
 
-.about-card  p {
-  border: 1px solid var(--cream);
-  background: var(--cream);
-  padding-bottom: 5px;
-  margin-top: 10px;
-  padding: 0;
-  
-
+.about-card h1 {
+    color: var(--gold-light);
+    font-size: clamp(40px, 8vw, 60px);
+    line-height: 1.1;
+    margin-bottom: 20px;
+    font-family: 'Bebas Neue', sans-serif;
 }
 
-/* ===== BUTTON ===== */
+.about-card p {
+    color: var(--cream);
+    max-width: 700px;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
 
+/* BUTTON */
 .button {
-  width: auto;
-  height: 39px;
-  background: var(--gold-light);
-  color: var(--brown-mid);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  border-radius: 4px;
-  border-width: 2px;
-  border-color: var(--gold-light);
-  border-style: solid;
-  padding: 14px 30px;
-  transition: all 0.15s ease;
-  cursor: pointer;
-  display: inline-flex;
-  user-select: auto;
-  position: relative;
-  overflow: hidden;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  text-decoration: none;
+    display: inline-flex;
+    padding: 12px 25px;
+    background: var(--gold-light);
+    color: var(--brown-mid);
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    margin-top: 15px;
 }
 
 .button:hover {
-  border-color: var(--gold);
-  color: var(--white);
-  transform: translateY(-2px);
+    background: var(--white);
+    transform: translateY(-3px);
 }
 
-.button:active {
-  transform: scale(0.96);
-}
-
-
-/* ===== BUTTON ===== */
-
-/* ===== GLASS ======*/
-/* Kontainer Utama: Bikin jejer ke samping dan bisa di-scroll */
-/* Pastikan item galeri punya posisi relatif */
-
+/* HORIZONTAL SCROLL GALLERY */
 .scroll-gallery-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Desktop otomatis bagi kolom */
-    gap: 20px;
+    display: flex;             /* Sejajarkan ke samping */
+    overflow-x: auto;          /* Aktifkan scroll horizontal */
+    gap: 25px;
     padding: 40px;
-    background: var(--brown); /* Samakan dengan background about agar menyatu */
+    scroll-snap-type: x mandatory; /* Efek "magnet" saat digeser */
+    -webkit-overflow-scrolling: touch;
 }
 
-.gallery-item {
-    position: relative;
-    width: 100%; 
-    height: 500px; /* Tentukan tinggi tetap untuk Desktop */
-    overflow: hidden;
-    border-radius: 15px;
+/* Sembunyikan scrollbar bawaan tapi tetep bisa discroll (estetika) */
+.scroll-gallery-container::-webkit-scrollbar {
+    height: 8px;
 }
-
-
-
-
-
-/* Membuat lapisan gelap transparan di atas foto */
-.gallery-overlay {
-    position: absolute;
-    top: 0; /* Ubah ke 0 supaya menutupi seluruh gambar */
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 20%, rgba(0, 0, 0, 0.4));
-    display: flex;
-    align-items: flex-end;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Styling teks di dalam foto */
-.overlay-content {
-    color: white;
-    width: 100%;
-    /* Batasi tinggi maksimal teks (misal 80% dari tinggi gambar) */
-    max-height: 85%; 
-    /* Munculkan scrollbar hanya jika teks kepanjangan */
-    overflow-y: auto; 
-    padding-right: 10px; /* Jarak buat scrollbar biar nggak nempel teks */
-}
-
-.overlay-content::-webkit-scrollbar {
-    width: 4px;
-}
-
-.overlay-content .category {
-    color: #d4a373; /* Warna gold/cokelat */
-    font-size: 0.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.overlay-content h3 {
-    margin: 5px 0;
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.8rem;
-    letter-spacing: 1px;
-}
-
-.overlay-content p {
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-
-.overlay-content::-webkit-scrollbar-thumb {
+.scroll-gallery-container::-webkit-scrollbar-thumb {
     background: var(--gold);
     border-radius: 10px;
 }
-
-.overlay-content::-webkit-scrollbar-track {
+.scroll-gallery-container::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.1);
 }
-/* Saat foto di-hover, gradient jadi sedikit lebih gelap */
-.gallery-item:hover .gallery-overlay {
-    background: linear-gradient(to top, rgba(0, 0, 0, 1) 5%, transparent 70%);
+
+.gallery-item {
+    flex: 0 0 350px;           /* Lebar tetap agar tidak gepeng */
+    height: 500px;             /* Tinggi tetap di desktop */
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    scroll-snap-align: start;
+    border: 1px solid rgba(201, 151, 58, 0.2);
 }
 
-/* Gambar sedikit membesar saat di-hover */
 .gallery-item img {
-    transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;         /* Foto full & proporsional */
+    transition: transform 0.6s ease;
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradient: makin ke bawah makin gelap supaya teks putih kebaca jelas */
+    background: linear-gradient(to top, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(0, 0, 0, 0.5) 30%, 
+        transparent 70%);
+        display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* INI KUNCINYA: Paksa konten ke bawah */
+    padding: 25px;             /* Jarak teks dari pinggir gambar */
+    box-sizing: border-box;
+    transition: background 0.3s ease;
+}
+
+.overlay-content {
+   color: white;
+    width: 100%;
+    max-height: 70%;           /* Batasi tinggi teks biar nggak nutupin foto */
+    overflow-y: auto;          /* Kalau teks kepanjangan, bisa discroll */
+    margin-bottom: 5px;
+}
+
+.overlay-content::-webkit-scrollbar { width: 4px; }
+.overlay-content::-webkit-scrollbar-thumb { background: var(--gold); }
+
+.overlay-content .category {
+    color: var(--gold-light);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.overlay-content h3 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    color: var(--white);
 }
 
 .gallery-item:hover img {
     transform: scale(1.1);
 }
-/* ===== GLASS ======*/
-/* ===== FOOTER ===== */
+
+.overlay-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+}
+
+
+
+/* FOOTER */
 footer {
-  background: var(--brown);
-  color: rgba(253, 246, 236, 0.4);
-  text-align: center;
-  padding: 30px 40px;
-  font-size: 0.82rem;
-  border-top: 1px solid rgba(201, 151, 58, 0.1);
-  letter-spacing: 1px;
+    background: #1a1009;
+    color: rgba(253, 246, 236, 0.4);
+    text-align: center;
+    padding: 40px;
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(201, 151, 58, 0.1);
 }
 
-footer span {
-  color: var(--gold);
-}
-
-/* ===== RESPONSIVE ===== */
+/* RESPONSIVE */
 @media (max-width: 768px) {
-  .navbar {
-    padding: 0 20px;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
-  .hero {
-    padding: 100px 20px 60px;
-  }
-
-  .stats-strip {
-    padding: 20px;
-  }
-
-  .section {
-    padding: 60px 20px;
-  }
-
-  .cta-banner {
-    margin: 0 20px 60px;
-    padding: 40px 30px;
-    flex-direction: column;
-  }
+    .about-card { padding: 0 20px; }
+    .gallery-item {
+        flex: 0 0 280px;       /* Lebih kecil di HP */
+        height: 400px;
+    }
+    .scroll-gallery-container {
+        padding: 20px;
+        gap: 15px;
+    }
 }

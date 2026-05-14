@@ -21,7 +21,6 @@ include "../config/database.php";
             <img src="../logo/companies.png" alt="Logo">
             <span class="nav-brand">Mining Market</span>
         </a>
-
         <ul class="nav-links">
             <li><a href="index.php">Home</a></li>
             <li><a href="products.php">Products</a></li>
@@ -30,7 +29,6 @@ include "../config/database.php";
             <li><a href="cart.php">🛒 Keranjang</a></li>
             <li><a href="../logout.php" class="logout-btn">Logout</a></li>
         </ul>
-
         <div class="hamburger" id="hamburger" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </div>
@@ -45,111 +43,71 @@ include "../config/database.php";
         <a href="../logout.php" class="m-logout">Logout</a>
     </div>
 
-    <div class="about-wrapper" style="margin-top: 100px;">
-    </div>
-
-    <!-- WRAPPER UNTUK KARTU ABOUT -->
     <div class="about-wrapper">
         <div class="about-card">
             <h1>TENTANG <br> KAMI</h1>
             <p>
-                PT Marlin Jaya Mesin bergerak di bidang industri manufaktur atau pengolahan, khususnya yang berkaitan dengan pengoperasian mesin-mesin industri.
-                <br>
-                Nama Perusahaan : <strong>PT. Marlin Jaya Mesin</strong>
-                <br>
-                Alamat : Jl. Raya Perancis, Komp. Ruko Mutiara Kosambi 2 Blok A No. 42
-                <br>
-                Kota : TANGERANG
-                <br>
-                <a href="https://www.google.com/maps/place/PT.marlin+jaya+mesin/@-6.0986256,106.6843811,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a039b9a1eadd3:0x6f3c0db1d74aec3d!8m2!3d-6.0986256!4d106.686956!16s%2Fg%2F11vhr3yp3d?entry=ttu&g_ep=EgoyMDI2MDUwNi4wIKXMDSoASAFQAw%3D%3D">Link maps</a>
+                PT Marlin Jaya Mesin adalah perusahaan terbatas (Limited Liability Company) Indonesia yang berfokus sebagai importir dan penyedia mesin, berlokasi di Tangerang. Perusahaan ini bergerak dalam impor mesin industri/umum dan berlokasi strategis di kawasan bisnis Ruko Mutiara Kosambi II, Benda, dekat Tangerang.
             </p>
-            <div>
+            <div style="margin-top: 20px;">
                 <a href="index.php" class="button">Kembali ke Beranda</a>
+                <a href="https://www.google.com/maps?sca_esv=6ce64e4e4d3a8d9d&biw=1280&bih=585&output=search&q=pt+marlin+jaya+mesin&source=lnms&fbs=ADc_l-ba_IWEPjukbPZWINwpkSLLXFPhcDxAZg033ba6Q9JRwwUFPTUEf-i6_AIubiJSgMt7AS9ouE11Ze89O2tVy3WnlaVRFBtGWzNKSMhEne0HqU_ojiBtb0vjzE_qsaAEWO96L4Gt0AzMhkSQ4twSlFjf0G4PNMTOCVzKn4o8n3X_BtfgML9dkP1_Yd6X3lvDmK_6lK37zMqwfPTAnYA62jxuxseBVA&entry=mc&ved=1t:200715&ictx=111" class="button">Link maps</a>
+            </div>
+        </div>
+
+        <div class="scroll-gallery-container">
+            <div class="gallery-item">
+                <img src="../images/Team/saham.jpg" alt="Team 1">
+                <div class="gallery-overlay">
+                    <h3>Pemegang Saham</h3>
+                    <p>Informasi struktur pemegang saham dan modal perusahaan yang terverifikasi.</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="../images/Team/team2.jpg" alt="Team 2">
+                <div class="gallery-overlay">
+                    <h3>Peerusahaan Aktif</h3>
+                    <p>Terdaftar sebagai entitas aktif menurut catatan Companies House Indonesia.</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="../images/Team/lokas.jpg" alt="Team 3">
+                <div class="gallery-overlay">
+                    <h3>Lokasi</h3>
+                    <p>Jl. Raya Perancis, Komp. Ruko Mutiara Kosambi 2 Blok A No.42, TANGERANG.</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="../images/Team/badanhukum.jpg" alt="Team 4">
+                <div class="gallery-overlay">
+                    <h3>Badan Hukum</h3>
+                    <p>PT. Marlin Jaya Mesin terdaftar resmi sebagai Perseroan Terbatas.</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="../images/Team/fakta.jpg" alt="Team 4">
+                <div class="gallery-overlay">
+                    <h3>Import & Eksport</h3>
+                    <p>Pt. Marlin Jaya Mesin, merangkum kinerja impor-ekspor globalnya, volume pengiriman, mitra dagang utama, dan tolok ukur pesaing. Dengan menggunakan alat Matchmaker, Importir dan Eksportir dapat menilai apakah Pt. Marlin Jaya Mesin adalah mitra yang tepat untuk bisnis Anda, sementara alat Intelijen Kompetitif membantu Anda memantau aktivitas pesaing, melihat pola yang muncul, dan mengidentifikasi peluang strategis untuk posisi pasar yang lebih kuat.</p>
+                </div>
             </div>
         </div>
     </div>
+    <footer>
+        © 2025 <span>PT Marlinjaya Mesin</span> · Mining Market · All rights reserved
+    </footer>
 
-
-    <div class="about-grid">
-        <div class="about-profile">
-
-            <div class="about-profile">
-                <h3></h3>
-                <p></p>
-            </div>
-            <div class="about-profile">
-                <h3></h3>
-                <p></p>
-            </div>
-            <div class="about-profile">
-
-            </div>
-        </div>
-        <div class="scroll-gallery-container">
-            <div class="gallery-item">
-                <img src="../images/Team/team1.jpg" alt="Foto Tambang 1">
-                <div class="gallery-overlay">
-                    <div class="overlay-content">
-                        <span class="category">OPERASIONAL</span>
-                        <h3>Siapa saja pemegang saham PT. Marlin Jaya Mesin?</h3>
-                        <p>Pemegang saham PT. Marlin Jaya Mesin dapat diidentifikasi melalui laporan perusahaan yang tersedia di companieshouse.id. Laporan ini berisi informasi registrasi perusahaan Indonesia yang telah diverifikasi, termasuk struktur pemegang saham, modal saham, direksi, dan detail pemilik manfaat.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="scroll-gallery-container">
-                <div class="gallery-item">
-                    <img src="../images/Team/team2.jpg" alt="Foto Tambang 1">
-                    <div class="gallery-overlay">
-                        <div class="overlay-content">
-                            <span class="category">OPERASIONAL</span>
-                            <h3>Apakah PT. Marlin Jaya Mesin merupakan perusahaan aktif?</h3>
-                            <p>Ya. PT. Marlin Jaya Mesin terdaftar sebagai perusahaan yang aktif menurut catatan Companies House Indonesia.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="scroll-gallery-container">
-                    <div class="gallery-item">
-                        <img src="../images/Team/team3.jpg" alt="Foto Tambang 1">
-                        <div class="gallery-overlay">
-                            <div class="overlay-content">
-                                <span class="category">OPERASIONAL</span>
-                                <h3>Dimana PT. Marlin Jaya berlokasi?</h3>
-                                <p>Alamat terdaftar PT. Marlin Jaya Mesin berada Jl. Raya Perancis, Komp. Ruko Mutiara Kosambi 2 Blok A No.42, TANGERANG, Indonesia.</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="scroll-gallery-container">
-                        <div class="gallery-item">
-                            <img src="../images/Team/team4.jpg" alt="Foto Tambang 1">
-                            <div class="gallery-overlay">
-                                <div class="overlay-content">
-                                    <span class="category">OPERASIONAL</span>
-                                    <h3>PT. Marlin Jaya Mesin berbadan hukum jenis apa?</h3>
-                                    <p>PT. Marlin Jaya Mesin terdaftar sebagai Perseroan Terbatas.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Script untuk menjalankan Hamburger Menu di HP -->
-                        <script src="../js/navbar.js"></script>
-                        <script></script>
-</body>
-
-</html>
-
-<footer>
-    &copy; 2025 <span>PT Marlinjaya Mesin</span> · Mining Market · All rights reserved
-</footer>
-
-<script src="../js/navbar.js">
-    function toggleMenu() {
-        document.getElementById('hamburger').classList.toggle('open');
-        document.getElementById('mobileMenu').classList.toggle('open');
-    }
-</script>
+    <script src="../js/navbar.js"></script>
+    <script>
+        function toggleMenu() {
+            document.getElementById('hamburger').classList.toggle('open');
+            document.getElementById('mobileMenu').classList.toggle('open');
+        }
+    </script>
 </body>
 
 </html>
