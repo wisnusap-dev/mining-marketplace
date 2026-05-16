@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
     <span class="nav-brand">Mining Market</span>
   </a>
   <ul class="nav-links">
-    <li><a href="index.php">Home</a></li>
+    <li><a hgit add .ref="index.php">Home</a></li>
     <li><a href="products.php">Products</a></li>
     <li><a href="about.php">About</a></li>
     <li><a href="contact.php" class="active">Contact</a></li>

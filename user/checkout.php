@@ -6,6 +6,7 @@ $items       = [];
 $total_bayar = 0;
 
 if (isset($_GET['id'])) {
+<<<<<<< HEAD
     $id    = mysqli_real_escape_string($conn, $_GET['id']);
     $query = mysqli_query($conn, "SELECT * FROM products WHERE id = '$id'");
     if ($row = mysqli_fetch_assoc($query)) {
@@ -17,6 +18,19 @@ if (isset($_GET['id'])) {
     $query = mysqli_query($conn, "SELECT * FROM products WHERE id IN ($ids)");
     while ($row = mysqli_fetch_assoc($query)) {
         $items[]     = $row;
+=======
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
+    $query = mysqli_query($conn, "SELECT * FROM products WHERE id = '$id'");
+    if ($row = mysqli_fetch_assoc($query)) {
+        $items[] = $row;
+        $total_bayar = $row['price'];
+    }
+} elseif (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+    $ids = implode(',', $_SESSION['cart']);
+    $query = mysqli_query($conn, "SELECT * FROM products WHERE id IN ($ids)");
+    while ($row = mysqli_fetch_assoc($query)) {
+        $items[] = $row;
+>>>>>>> dd37e82c410cd2350a8cf47f19f7a859254d0c16
         $total_bayar += $row['price'];
     }
 } else {
@@ -26,6 +40,7 @@ if (isset($_GET['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +48,7 @@ if (isset($_GET['id'])) {
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/navbar.css">
 </head>
+
 <body>
 
 <!-- NAVBAR -->
@@ -120,4 +136,9 @@ function toggleMenu() {
 </script>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+
+</html>
+>>>>>>> dd37e82c410cd2350a8cf47f19f7a859254d0c16

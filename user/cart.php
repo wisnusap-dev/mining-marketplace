@@ -52,7 +52,6 @@ if (isset($_GET['remove'])) {
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
-</nav>
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
