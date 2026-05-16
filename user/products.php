@@ -5,14 +5,12 @@ include "../config/database.php";
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Produk — Mining Market</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/product.css">
-<link rel="stylesheet" href="../css/navbar.css"
-<style>
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produk — Mining Market</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/product.css">
+  <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
 
@@ -63,11 +61,12 @@ include "../config/database.php";
     <?php
     $query = mysqli_query($conn, "SELECT * FROM products");
     $count = mysqli_num_rows($query);
-    while($row = mysqli_fetch_assoc($query)):
+    while ($row = mysqli_fetch_assoc($query)):
     ?>
     <div class="product-card" data-name="<?php echo strtolower($row['name']); ?>">
       <div class="product-img-wrap">
-        <img class="product-img" src="../images/products/<?php echo $row['image']; ?>" 
+        <img class="product-img"
+             src="../images/products/<?php echo $row['image']; ?>"
              alt="<?php echo htmlspecialchars($row['name']); ?>"
              onerror="this.style.background='#e8ddd4'; this.src='';">
       </div>
@@ -94,7 +93,8 @@ include "../config/database.php";
 
 <footer>&copy; 2025 <span>PT Marlinjaya Mesin</span> · Mining Market</footer>
 
-<script  src="../js/navbar.js">
+<script src="../js/navbar.js"></script>
+<script>
 const totalCount = <?php echo $count; ?>;
 document.getElementById('countDisplay').textContent = totalCount;
 
@@ -103,9 +103,12 @@ function filterProducts() {
   const cards = document.querySelectorAll('.product-card');
   let visible = 0;
   cards.forEach(card => {
-    const name = card.getAttribute('data-name');
-    if (name.includes(q)) { card.style.display  = ''; visible++; }
-    else card.style.display = 'none';
+    if (card.getAttribute('data-name').includes(q)) {
+      card.style.display = '';
+      visible++;
+    } else {
+      card.style.display = 'none';
+    }
   });
   document.getElementById('countDisplay').textContent = visible;
   document.getElementById('emptyState').style.display = visible === 0 ? 'block' : 'none';
@@ -116,5 +119,6 @@ function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
 }
 </script>
+
 </body>
 </html>

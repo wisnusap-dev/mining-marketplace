@@ -8,6 +8,7 @@
   --bg: #f5ede2;
   --text-muted: #8a7060;
   --white: #ffffff;
+  --nav-h: 72px;
 }
 
 html { scroll-behavior: smooth; }
@@ -26,7 +27,7 @@ body {
   display: flex;
   align-items: center;
   position: relative;
-  padding: 120px 40px 80px;
+  padding: calc(var(--nav-h) + 48px) 40px 80px;
   overflow: hidden;
 }
 
@@ -347,7 +348,7 @@ footer span { color: var(--gold); }
   .navbar { padding: 0 20px; }
   .nav-links { display: none; }
   .hamburger { display: flex; }
-  .hero { padding: 100px 20px 60px; }
+  .hero { padding: calc(var(--nav-h) + 28px) 20px 60px; }
   .stats-strip { padding: 20px; }
   .section { padding: 60px 20px; }
   .cta-banner { margin: 0 20px 60px; padding: 40px 30px; flex-direction: column; }

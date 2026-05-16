@@ -1,15 +1,10 @@
-/* Tambahkan ini di bagian paling atas navbar.css */
 :root {
-  --brown: #2c1a0e;
-  --cream: #fdf6ec;
-  --gold: #c9973a;
+  --brown:      #2c1a0e;
+  --cream:      #fdf6ec;
+  --gold:       #c9973a;
   --gold-light: #e4c185;
+  --nav-h:      72px;
 }
-
-
-
-/* ... sisa kode CSS navbar Anda sudah benar ... */
-
 
 /* ===== NAVBAR ===== */
 .navbar {
@@ -22,7 +17,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  height: 72px;
+  height: var(--nav-h);
   background: rgba(44, 26, 14, 0.97);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(201, 151, 58, 0.15);
@@ -53,6 +48,8 @@
   align-items: center;
   gap: 0;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links a {
@@ -83,13 +80,6 @@
   background: var(--gold);
 }
 
-.nav-links .cart-link {
-  position: relative;
-  color: var(--cream);
-  font-size: 1.1rem;
-  padding: 8px 14px;
-}
-
 .logout-btn {
   margin-left: 8px;
   background: transparent !important;
@@ -105,13 +95,15 @@
   color: var(--brown) !important;
 }
 
-/* Hamburger */
+/* ===== HAMBURGER ===== */
 .hamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
   padding: 5px;
+  background: none;
+  border: none;
 }
 
 .hamburger span {
@@ -123,27 +115,19 @@
   border-radius: 2px;
 }
 
-.hamburger.open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-.hamburger.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-
-/* Mobile menu */
+/* ===== MOBILE MENU ===== */
 .mobile-menu {
   display: none;
   position: fixed;
-  top: 72px;
+  top: var(--nav-h);
   left: 0;
   right: 0;
   background: var(--brown);
-  padding: 20px;
+  padding: 16px 24px 24px;
   z-index: 999;
   border-bottom: 1px solid rgba(201, 151, 58, 0.15);
 }
@@ -163,12 +147,30 @@
   letter-spacing: 1px;
 }
 
+.mobile-menu a:last-child {
+  border-bottom: none;
+}
+
 .mobile-menu a:hover {
   color: var(--gold-light);
 }
 
 .mobile-menu .m-logout {
   color: var(--gold);
-  border: none;
-  margin-top: 10px;
+  margin-top: 8px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
 }

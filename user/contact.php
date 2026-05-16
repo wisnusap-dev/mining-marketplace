@@ -32,9 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/contact.css">
   <link rel="stylesheet" href="../css/navbar.css">
-  <style>
-    
-  </style>
 </head>
 <body>
 
@@ -44,16 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
     <img src="../logo/companies.png" alt="Logo">
     <span class="nav-brand">Mining Market</span>
   </a>
-
   <ul class="nav-links">
-    <li><a href="index.php" class="active">Home</a></li>
+    <li><a href="index.php">Home</a></li>
     <li><a href="products.php">Products</a></li>
     <li><a href="about.php">About</a></li>
-    <li><a href="contact.php">Contact</a></li>
+    <li><a href="contact.php" class="active">Contact</a></li>
     <li><a href="cart.php">🛒 Keranjang</a></li>
     <li><a href="../logout.php" class="logout-btn">Logout</a></li>
   </ul>
-
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
@@ -67,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
   <a href="contact.php">Contact Us</a>
   <a href="cart.php">🛒 Keranjang</a>
   <a href="../logout.php" class="m-logout">Logout</a>
-</div>  
+</div>
 
 <!-- PAGE HERO -->
 <div class="page-hero">
@@ -177,17 +172,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
   <span>All rights reserved</span>
 </footer>
 
+<script src="../js/navbar.js"></script>
 <script>
-  const hamburger = document.getElementById('hamburger');
-  const navLinks  = document.getElementById('nav-links');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navLinks.classList.toggle('open');
-  });
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    navLinks.classList.remove('open');
-  }));
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
 </script>
+
 </body>
 </html>
