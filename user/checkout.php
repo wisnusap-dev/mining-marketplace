@@ -1,22 +1,21 @@
-<?php 
+<?php
 session_start();
-include "../config/database.php"; 
+include "../config/database.php";
 
 $items = [];
 $total_bayar = 0;
 
-if(isset($_GET['id'])) {
+if (isset($_GET['id'])) {
     $id = mysqli_real_escape_string($conn, $_GET['id']);
     $query = mysqli_query($conn, "SELECT * FROM products WHERE id = '$id'");
-    if($row = mysqli_fetch_assoc($query)) {
+    if ($row = mysqli_fetch_assoc($query)) {
         $items[] = $row;
         $total_bayar = $row['price'];
     }
-} 
-elseif(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+} elseif (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     $ids = implode(',', $_SESSION['cart']);
     $query = mysqli_query($conn, "SELECT * FROM products WHERE id IN ($ids)");
-    while($row = mysqli_fetch_assoc($query)) {
+    while ($row = mysqli_fetch_assoc($query)) {
         $items[] = $row;
         $total_bayar += $row['price'];
     }
@@ -27,33 +26,45 @@ elseif(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Checkout - Konfirmasi Pembayaran</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/navbar.css">
 </head>
+
 <body>
-<nav class="gen-nav">
-    <a href="index.php" class="nav-logo">
-        <img src="../logo/companies.png" alt="Mining Market Logo">
-    </a>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="index.php" class="nav-logo">
+            <img src="../logo/companies.png" alt="Logo">
+            <span class="nav-brand">Mining Market</span>
+        </a>
 
-    <div class="menu-toggle" id="mobile-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
+        <ul class="nav-links">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="products.php">Products</a></li>
+            <li><a href="about.php">About</a></li>
+            <li><a href="contact.php">Contact</a></li>
+            <li><a href="cart.php">🛒 Keranjang</a></li>
+            <li><a href="../logout.php" class="logout-btn">Logout</a></li>
+        </ul>
+
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.php">Home</a>
+        <a href="products.php">Products</a>
+        <a href="about.php">About</a>
+        <a href="contact.php">Contact Us</a>
+        <a href="cart.php">🛒 Keranjang</a>
+        <a href="../logout.php" class="m-logout">Logout</a>
     </div>
-
-    <ul id="gen-menu">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="products.php">Products</a></li> 
-        <li><a href="about.php">About</a></li>
-        <li><a href="contact.php">Contact Us</a></li>
-        <li><a href="cart.php">Keranjang</a></li>
-        <li><a href="../logout.php" class="logout-btn">Logout</a></li>
-    </ul>
-</nav>
 
     <div class="container" style="margin-top: 30px;">
         <h1 class="main-title" style="text-align: center;">Form Checkout</h1>
@@ -61,7 +72,7 @@ elseif(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             <div class="order-summary">
                 <strong>Ringkasan Pesanan:</strong><br>
                 <ul style="list-style: none; padding: 10px 0;">
-                    <?php foreach($items as $item): ?>
+                    <?php foreach ($items as $item): ?>
                         <li style="display: flex; justify-content: space-between; margin-bottom: 5px;">
                             <span>• <?php echo $item['name']; ?></span>
                             <span>Rp <?php echo number_format($item['price'], 0, ',', '.'); ?></span>
@@ -93,11 +104,15 @@ elseif(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                 </div>
                 <!-- INI PENTING UNTUK PROSES_CHECKOUT -->
                 <input type="hidden" name="total_harga" value="<?php echo $total_bayar; ?>">
-                
-                <button type="submit" class="btn-confirm" style="background: #3d2b1f; color: white; width: 100%; padding: 10px; border: none; cursor: pointer;">Konfirmasi & Bayar</button>
+
+                <div class="checkout-actions">
+                    <button type="submit" class="btn-confirm">Konfirmasi & Bayar</button>
+                    <a href="../user/products.php" class="btn-cancel">Batalkan Pembayaran</a>
+                </div>
             </form>
         </div>
     </div>
     <script src="../js/navbar.js"></script>
 </body>
+
 </html>

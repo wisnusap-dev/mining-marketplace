@@ -35,24 +35,36 @@ if (isset($_GET['remove'])) {
 </head>
 <body>
 
-<nav class="navbar">
-  <a href="index.php" class="nav-logo">
-    <img src="../logo/companies.png" alt="Logo">
-    <span class="nav-brand">Mining Market</span>
-  </a>
+ <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.php" class="nav-logo">
+      <img src="../logo/companies.png" alt="Logo">
+      <span class="nav-brand">Mining Market</span>
+    </a>
 
-  <ul class="nav-links">
-    <li><a href="index.php">Home</a></li>
-    <li><a href="products.php">Products</a></li>
-    <li><a href="about.php">About</a></li>
-    <li><a href="contact.php">Contact</a></li>
-    <li><a href="cart.php" class="active">🛒 Keranjang</a></li> <li><a href="../logout.php" class="logout-btn">Logout</a></li>
-  </ul>
+    <ul class="nav-links">
+      <li><a href="index.php">Home</a></li>
+      <li><a href="products.php">Products</a></li>
+      <li><a href="about.php">About</a></li>
+      <li><a href="contact.php">Contact</a></li>
+      <li><a href="cart.php" class="active">🛒 Keranjang</a></li>
+      <li><a href="../logout.php" class="logout-btn">Logout</a></li>
+    </ul>
 
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.php">Home</a>
+    <a href="products.php">Products</a>
+    <a href="about.php">About</a>
+    <a href="contact.php">Contact Us</a>
+    <a href="cart.php">🛒 Keranjang</a>
+    <a href="../logout.php" class="m-logout">Logout</a>
   </div>
-</nav>
 
 
     <div class="container" style="margin-top: 30px;">

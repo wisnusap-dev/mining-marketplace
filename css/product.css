@@ -281,6 +281,8 @@ footer span {
   color: var(--gold);
 }
 
+
+
 @media (max-width: 768px) {
   .navbar {
     padding: 0 20px;

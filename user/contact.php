@@ -46,13 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
   </a>
 
   <ul class="nav-links">
-    <li><a href="index.php" class="active">Home</a></li>
-    <li><a href="products.php">Products</a></li>
-    <li><a href="about.php">About</a></li>
-    <li><a href="contact.php">Contact</a></li>
-    <li><a href="cart.php">🛒 Keranjang</a></li>
-    <li><a href="../logout.php" class="logout-btn">Logout</a></li>
-  </ul>
+  <li><a href="index.php">Home</a></li>
+  <li><a href="products.php">Products</a></li>
+  <li><a href="about.php">About</a></li>
+  <li><a href="contact.php" class="active">Contact</a></li> <li><a href="cart.php">🛒 Keranjang</a></li>
+  <li><a href="../logout.php" class="logout-btn">Logout</a></li>
+</ul>
 
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
