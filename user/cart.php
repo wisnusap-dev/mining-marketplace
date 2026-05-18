@@ -35,7 +35,6 @@ if (isset($_GET['remove'])) {
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
   <a href="index.php" class="nav-logo">
     <img src="../logo/companies.png" alt="Logo">
@@ -52,9 +51,7 @@ if (isset($_GET['remove'])) {
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
+</nav> <div class="mobile-menu" id="mobileMenu">
   <a href="index.php">Home</a>
   <a href="products.php">Products</a>
   <a href="about.php">About</a>
@@ -77,7 +74,13 @@ if (isset($_GET['remove'])) {
         </tr>
         <?php
         $total = 0;
-        $ids   = implode(',', $_SESSION['cart']);
+        
+        // Proteksi klausa IN () untuk menghindari error SQL bila data bermasalah
+        $cart_ids = array_map(function($val) use ($conn) {
+            return "'" . mysqli_real_escape_string($conn, $val) . "'";
+        }, $_SESSION['cart']);
+        $ids   = implode(',', $cart_ids);
+        
         $query = mysqli_query($conn, "SELECT * FROM products WHERE id IN ($ids)");
         while ($row = mysqli_fetch_assoc($query)):
           $total += $row['price'];
@@ -108,7 +111,12 @@ if (isset($_GET['remove'])) {
 </div>
 
 <footer>
-  &copy; 2025 <span>PT Marlinjaya Mesin</span> · Mining Market · All rights reserved
+  <span>© <?php echo date('Y'); ?></span>
+  <a href="index.php">PT Marlinjaya Mesin</a>
+  <span class="dot">·</span>
+  <span>Mining Market</span>
+  <span class="dot">·</span>
+  <span>All rights reserved</span>
 </footer>
 
 <script src="../js/navbar.js"></script>
