@@ -77,7 +77,7 @@ include "../config/database.php";
         <div class="product-price">Rp <?php echo number_format($row['price'], 0, ',', '.'); ?></div>
         <div class="product-actions">
           <a href="cart.php?id=<?php echo $row['id']; ?>" class="btn-cart">🛒 + Keranjang</a>
-          <a href="checkout.php?id=<?php echo $row['id']; ?>" class="btn-buy">Beli Langsung</a>
+          <a href="cart.php?buy_now=<?php echo $row['id']; ?>" class="btn-buy">Beli Langsung</a>
         </div>
       </div>
     </div>

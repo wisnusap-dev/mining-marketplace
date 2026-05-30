@@ -166,7 +166,7 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
           <span class="action-icon">📋</span>
           Laporan Order
         </a>
-        <a href="../user/index.php" class="action-btn" target="_blank">
+        <a href="../user/index.php" class="action-btn" >
           <span class="action-icon">🌐</span>
           Lihat Toko
         </a>

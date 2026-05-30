@@ -36,7 +36,6 @@ if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 <body>
   <nav class="navbar">
     <a href="index.php" class="nav-logo">
-      <img src="../logo/companies.png" alt="Logo">
       <span class="nav-brand">Mining Market</span>
     </a>
     <ul class="nav-links">

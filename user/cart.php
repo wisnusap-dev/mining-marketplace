@@ -2,24 +2,40 @@
 session_start();
 include "../config/database.php";
 
-// 1. Logika Tambah Produk ke Keranjang (Mendukung Kuantitas)
+// 1. Logika Tambah ke Keranjang Biasa (Akan diarahkan ke cart.php)
 if (isset($_GET['id'])) {
     $id = mysqli_real_escape_string($conn, $_GET['id']);
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
     
-    // Jika produk sudah ada di keranjang, jumlahnya ditambah 1
     if (isset($_SESSION['cart'][$id])) {
         $_SESSION['cart'][$id]++;
     } else {
-        $_SESSION['cart'][$id] = 1; // Jika belum ada, set kuantitas = 1
+        $_SESSION['cart'][$id] = 1;
     }
-    header("Location: cart.php");
+    header("Location: cart.php"); // Bawa user ke Keranjang
     exit();
 }
 
-// 2. Logika Hapus Produk dari Keranjang
+// 2. Logika BELI LANGSUNG (Akan diarahkan langsung ke checkout.php)
+if (isset($_GET['buy_now'])) {
+    $id = mysqli_real_escape_string($conn, $_GET['buy_now']);
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+    
+    // Sama seperti fungsi keranjang, barang tetap dicatat
+    if (isset($_SESSION['cart'][$id])) {
+        $_SESSION['cart'][$id]++;
+    } else {
+        $_SESSION['cart'][$id] = 1; 
+    }
+    header("Location: checkout.php"); // BAWA USER LANGSUNG KE CHECKOUT
+    exit();
+}
+
+// 3. Logika Hapus Produk dari Keranjang
 if (isset($_GET['remove'])) {
     $id = mysqli_real_escape_string($conn, $_GET['remove']);
     if (isset($_SESSION['cart'][$id])) {
@@ -29,6 +45,7 @@ if (isset($_GET['remove'])) {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -43,7 +60,6 @@ if (isset($_GET['remove'])) {
 
 <nav class="navbar">
   <a href="index.php" class="nav-logo">
-    <img src="../logo/companies.png" alt="Logo">
     <span class="nav-brand">Mining Market</span>
   </a>
   <ul class="nav-links">
