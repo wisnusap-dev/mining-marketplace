@@ -144,6 +144,13 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
           <div class="stat-sub">Terhubung aman</div>
         </div>
       </div>
+      <div class="stat-card fade-up">
+          <div class="stat-icon">💰</div>
+          <div class="stat-label">Anggota Aktif</div>
+          <div class="stat-value" style="font-size:1.4rem; color:var(--green);">Online</div>
+          <div class="stat-sub">Terhubung aman</div>
+        </div>
+      </div>
 
       <!-- CHART -->
       <div class="card chart-card fade-up">

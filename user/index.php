@@ -22,7 +22,6 @@ if (!isset($_SESSION['user_id'])) {
 
 <!-- NAVBAR -->
 <nav class="navbar">
-  <a href="index.php" class="nav-logo">
     <span class="nav-brand">Mining Market</span>
   </a>
   <ul class="nav-links">

@@ -13,8 +13,9 @@
   background: var(--card-bg);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1rf);
   gap: 6px;
   position: relative;
   overflow: hidden;
