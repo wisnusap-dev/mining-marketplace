@@ -25,8 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
   <title>Contact Us — Mining Market</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/navbar.css">
+<<<<<<< HEAD
   <link rel="stylesheet" href="../css/contact.css">
   <link rel="stylesheet" href="../css/user_fx.css">
+=======
+>>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
 </head>
 <body>
 
@@ -40,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
 
 <nav class="navbar">
   <a href="index.php" class="nav-logo">
-    <img src="../logo/companies.png" alt="Logo">
     <span class="nav-brand">Mining Market</span>
   </a>
   <ul class="nav-links">
@@ -161,15 +163,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
 </footer>
 
 <script src="../js/navbar.js"></script>
+<<<<<<< HEAD
 <script src="../js/user.js"></script>
+=======
+>>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
 <script>
 function toggleMenu() {
   document.getElementById('hamburger').classList.toggle('open');
   document.getElementById('mobileMenu').classList.toggle('open');
 }
+<<<<<<< HEAD
 <?php if ($success): ?>
 window.addEventListener('load', () => showToast('Pesan berhasil terkirim! 📨'));
 <?php endif; ?>
+=======
+>>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
 </script>
+
 </body>
 </html>

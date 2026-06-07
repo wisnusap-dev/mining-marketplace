@@ -144,6 +144,16 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
           <div class="stat-sub">Terhubung aman</div>
         </div>
       </div>
+<<<<<<< HEAD
+=======
+      <div class="stat-card fade-up">
+          <div class="stat-icon">💰</div>
+          <div class="stat-label">Anggota Aktif</div>
+          <div class="stat-value" style="font-size:1.4rem; color:var(--green);">Online</div>
+          <div class="stat-sub">Terhubung aman</div>
+        </div>
+      </div>
+>>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
 
       <!-- CHART -->
       <div class="card chart-card fade-up">
@@ -166,7 +176,11 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
           <span class="action-icon">📋</span>
           Laporan Order
         </a>
+<<<<<<< HEAD
         <a href="../user/index.php" class="action-btn" target="_blank">
+=======
+        <a href="../user/index.php" class="action-btn" >
+>>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
           <span class="action-icon">🌐</span>
           Lihat Toko
         </a>
