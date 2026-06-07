@@ -2,13 +2,14 @@
 session_start();
 include "../config/database.php";
 
+// Proteksi halaman: pastikan user sudah login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
 // 1. Logika Tambah ke Keranjang Biasa (Akan diarahkan ke cart.php)
 if (isset($_GET['id'])) {
-<<<<<<< HEAD
-    if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
-    if (!in_array($_GET['id'], $_SESSION['cart'])) array_push($_SESSION['cart'], $_GET['id']);
-    header("Location: cart.php?added=1");
-=======
     $id = mysqli_real_escape_string($conn, $_GET['id']);
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
@@ -19,8 +20,7 @@ if (isset($_GET['id'])) {
     } else {
         $_SESSION['cart'][$id] = 1;
     }
-    header("Location: cart.php"); // Bawa user ke Keranjang
->>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
+    header("Location: cart.php?added=1"); // Ditambah parameter info toast
     exit();
 }
 
@@ -31,27 +31,21 @@ if (isset($_GET['buy_now'])) {
         $_SESSION['cart'] = [];
     }
     
-    // Sama seperti fungsi keranjang, barang tetap dicatat
     if (isset($_SESSION['cart'][$id])) {
         $_SESSION['cart'][$id]++;
     } else {
         $_SESSION['cart'][$id] = 1; 
     }
-    header("Location: checkout.php"); // BAWA USER LANGSUNG KE CHECKOUT
+    header("Location: checkout.php"); 
     exit();
 }
 
-// 3. Logika Hapus Produk dari Keranjang
+// 3. Logika Hapus Produk dari Keranjang (Sudah Diperbaiki)
 if (isset($_GET['remove'])) {
-<<<<<<< HEAD
-    $key = array_search($_GET['remove'], $_SESSION['cart'] ?? []);
-    if ($key !== false) unset($_SESSION['cart'][$key]);
-=======
-    $id = mysqli_real_escape_string($conn, $_GET['remove']);
-    if (isset($_SESSION['cart'][$id])) {
-        unset($_SESSION['cart'][$id]);
+    $id_remove = mysqli_real_escape_string($conn, $_GET['remove']);
+    if (isset($_SESSION['cart'][$id_remove])) {
+        unset($_SESSION['cart'][$id_remove]);
     }
->>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
     header("Location: cart.php");
     exit();
 }
@@ -62,7 +56,6 @@ if (isset($_GET['remove'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
   <title>Keranjang — Mining Market</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/navbar.css">
@@ -92,12 +85,6 @@ if (isset($_GET['remove'])) {
     .btn-checkout { padding:11px 28px; background:var(--brown); border-radius:8px; color:var(--cream); text-decoration:none; font-size:0.85rem; font-weight:600; transition:background 0.2s; }
     .btn-checkout:hover { background:var(--gold); color:var(--brown); }
   </style>
-=======
-  <title>Keranjang Belanja - Mining Market</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/cart.css">
-  <link rel="stylesheet" href="../css/navbar.css">
->>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
 </head>
 <body>
 
@@ -135,7 +122,6 @@ if (isset($_GET['remove'])) {
   <a href="../logout.php" class="m-logout">Logout</a>
 </div>
 
-<<<<<<< HEAD
 <div class="cart-wrap">
   <h1 class="cart-title reveal">🛒 Keranjang Belanja</h1>
 
@@ -149,7 +135,12 @@ if (isset($_GET['remove'])) {
 
   <?php else:
     $total = 0;
-    $ids   = implode(',', array_map('intval', $_SESSION['cart']));
+    // Perbaikan pengambilan ID yang valid dari key Session array
+    $cart_ids = array_map(function($val) use ($conn) {
+        return "'" . mysqli_real_escape_string($conn, $val) . "'";
+    }, array_keys($_SESSION['cart']));
+    $ids = implode(',', $cart_ids);
+    
     $query = mysqli_query($conn, "SELECT * FROM products WHERE id IN ($ids)");
   ?>
   <div class="cart-card reveal">
@@ -158,26 +149,33 @@ if (isset($_GET['remove'])) {
         <thead>
           <tr>
             <th>Produk</th>
-            <th>Harga</th>
+            <th>Harga Satuan</th>
+            <th style="text-align: center;">Jumlah</th>
+            <th>Subtotal</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
-          <?php while ($row = mysqli_fetch_assoc($query)):
-            $total += $row['price'];
+          <?php 
+          while ($row = mysqli_fetch_assoc($query)):
+            $qty = $_SESSION['cart'][$row['id']];
+            $subtotal = $row['price'] * $qty;
+            $total += $subtotal;
           ?>
           <tr>
             <td class="cart-item-name"><?php echo htmlspecialchars($row['name']); ?></td>
             <td class="cart-price">Rp <?php echo number_format($row['price'], 0, ',', '.'); ?></td>
+            <td style="text-align: center; font-weight: 600; color: #9a8070;"><?php echo $qty; ?>x</td>
+            <td class="cart-price" style="color: var(--brown);">Rp <?php echo number_format($subtotal, 0, ',', '.'); ?></td>
             <td>
-              <a href="cart.php?remove=<?php echo $row['id']; ?>" class="cart-remove">✕ Hapus</a>
+              <a href="cart.php?remove=<?php echo $row['id']; ?>" class="cart-remove" onclick="return confirm('Hapus produk ini dari keranjang?')">✕ Hapus</a>
             </td>
           </tr>
           <?php endwhile; ?>
+          
           <tr class="cart-total-row">
-            <td><strong>Total Bayar</strong></td>
-            <td class="cart-price">Rp <?php echo number_format($total, 0, ',', '.'); ?></td>
-            <td></td>
+            <td colspan="3"><strong>Total Bayar</strong></td>
+            <td class="cart-price" colspan="2">Rp <?php echo number_format($total, 0, ',', '.'); ?></td>
           </tr>
         </tbody>
       </table>
@@ -191,68 +189,6 @@ if (isset($_GET['remove'])) {
 </div>
 
 <footer>
-  &copy; 2025 <span>PT Marlinjaya Mesin</span> · Mining Market · All rights reserved
-</footer>
-
-<script src="../js/navbar.js"></script>
-<script src="../js/user.js"></script>
-=======
-<div class="container" style="margin-top: 30px;">
-  <h1 class="main-title" style="text-align: center;">Keranjang Belanja Anda</h1>
-  <div class="checkout-container" style="max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 10px;">
-    <?php if (empty($_SESSION['cart'])): ?>
-      <p style="text-align:center;">Keranjang kosong. <a href="products.php">Belanja sekarang?</a></p>
-    <?php else: ?>
-      <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-        <tr style="border-bottom: 2px solid #3d2b1f; text-align: left;">
-          <th style="padding: 10px;">Produk</th>
-          <th>Harga Beras</th>
-          <th style="text-align: center;">Jumlah</th>
-          <th>Subtotal</th>
-          <th>Aksi</th>
-        </tr>
-        <?php
-        $total = 0;
-        // Mengambil semua ID produk dari key session array
-        $cart_ids = array_map(function($val) use ($conn) {
-            return "'" . mysqli_real_escape_string($conn, $val) . "'";
-        }, array_keys($_SESSION['cart']));
-        $ids = implode(',', $cart_ids);
-        
-        $query = mysqli_query($conn, "SELECT * FROM products WHERE id IN ($ids)");
-        while ($row = mysqli_fetch_assoc($query)):
-          $qty = $_SESSION['cart'][$row['id']]; // Mengambil kuantitas item
-          $subtotal = $row['price'] * $qty;
-          $total += $subtotal;
-        ?>
-        <tr style="border-bottom: 1px solid #ddd;">
-          <td style="padding: 10px;"><?php echo htmlspecialchars($row['name']); ?></td>
-          <td>Rp <?php echo number_format($row['price'], 0, ',', '.'); ?></td>
-          <td style="text-align: center;"><?php echo $qty; ?>x</td>
-          <td>Rp <?php echo number_format($subtotal, 0, ',', '.'); ?></td>
-          <td>
-            <a href="cart.php?remove=<?php echo $row['id']; ?>" style="color: red; text-decoration: none;">Hapus</a>
-          </td>
-        </tr>
-        <?php endwhile; ?>
-        <tr style="font-weight: bold; background: #fcfaf7; color: #3d2b1f;">
-          <td style="padding: 10px;" colspan="3">Total Bayar</td>
-          <td colspan="2">Rp <?php echo number_format($total, 0, ',', '.'); ?></td>
-        </tr>
-      </table>
-      <div style="display: flex; justify-content: space-between;">
-        <a href="products.php" style="padding: 10px; text-decoration: none; color: #3d2b1f; border: 1px solid #3d2b1f; border-radius: 5px;">
-          Lanjut Belanja
-        </a>
-        <a href="checkout.php" class="btn-confirm" style="text-decoration: none; background: #3d2b1f; color: white; padding: 10px 20px; border-radius: 5px;">
-          Lanjut Pembayaran
-        </a>
-      </div>
-    <?php endif; ?>
-  </div>
-</div>
-
-<footer>
   <span>© <?php echo date('Y'); ?></span>
   <a href="index.php">PT Marlinjaya Mesin</a>
   <span class="dot">·</span>
@@ -262,18 +198,20 @@ if (isset($_GET['remove'])) {
 </footer>
 
 <script src="../js/navbar.js"></script>
->>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
+<script src="../js/user.js"></script>
 <script>
 function toggleMenu() {
   document.getElementById('hamburger').classList.toggle('open');
   document.getElementById('mobileMenu').classList.toggle('open');
 }
-<<<<<<< HEAD
+
 <?php if (isset($_GET['added'])): ?>
-window.addEventListener('load', () => showToast('Produk ditambahkan ke keranjang! 🛒'));
+window.addEventListener('load', () => {
+  if (typeof showToast === 'function') {
+    showToast('Produk ditambahkan ke keranjang! 🛒');
+  }
+});
 <?php endif; ?>
-=======
->>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
 </script>
 </body>
 </html>

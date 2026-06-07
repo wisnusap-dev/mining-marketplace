@@ -2,14 +2,8 @@
 session_start();
 include "../config/database.php";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nama_pembeli = mysqli_real_escape_string($conn, $_POST['nama_pembeli']);
-    $alamat       = mysqli_real_escape_string($conn, $_POST['alamat']);
-    $total_harga  = intval($_POST['total_harga']);
-    $order_id     = "MINE-" . time(); 
-
-<<<<<<< HEAD
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+// 1. PROTEKSI HALAMAN: Pastikan request adalah POST dan user sudah login
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user_id'])) {
     header("Location: products.php");
     exit();
 }
@@ -18,23 +12,23 @@ $id_user      = $_SESSION['user_id'];
 $nama_pembeli = mysqli_real_escape_string($conn, $_POST['nama_pembeli']);
 $alamat       = mysqli_real_escape_string($conn, $_POST['alamat']);
 $metode_bayar = mysqli_real_escape_string($conn, $_POST['metode_bayar']);
-$total_harga  = (int) $_POST['total_harga'];
+$total_harga  = intval($_POST['total_harga']);
 
+// Validasi nominal harga untuk mencegah kecurangan/eror angka minus
+if ($total_harga <= 0) {
+    header("Location: products.php");
+    exit();
+}
+
+// 2. SIMPAN TRANSAKSI KE DATABASE LOKAL TERLEBIH DAHULU (Status: pending)
 $query = "INSERT INTO orders (id_user, nama_pembeli, alamat_pengiriman, jumlah_beli, total_harga, metode_pembayaran, status, tanggal_order)
           VALUES ('$id_user', '$nama_pembeli', '$alamat', 1, '$total_harga', '$metode_bayar', 'pending', NOW())";
 
 if (mysqli_query($conn, $query)) {
-    unset($_SESSION['cart']);
-    echo "<script>alert('Pesanan Berhasil dikirim!'); window.location.href='index.php';</script>";
-} else {
-    echo "Error: " . mysqli_error($conn);
-}
-?>
-=======
-    if ($total_harga <= 0) {
-        header("Location: products.php");
-        exit();
-    }
+    
+    // Mengambil ID order terakhir dari database agar sinkron sempurna dengan Midtrans
+    $inserted_id = mysqli_insert_id($conn);
+    $order_id    = "MINE-" . $inserted_id . "-" . time(); 
 
     // ==========================================
     // CONFIGURATION MIDTRANS SANDBOX (AKTIF)
@@ -66,7 +60,7 @@ if (mysqli_query($conn, $query)) {
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $json_payload);
     
-    // Melewati validasi SSL khusus lingkungan localhost agar tidak eror kosong
+    // Melewati validasi SSL khusus lingkungan localhost/laragon agar tidak eror blank
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     
@@ -87,15 +81,17 @@ if (mysqli_query($conn, $query)) {
     curl_close($ch);
     $result = json_decode($response, true);
 
+    // Jika Token didapatkan, hapus isi keranjang belanja
     if (isset($result['token'])) {
         $snap_token = $result['token'];
-        unset($_SESSION['cart']); // Hapus isi keranjang karena transaksi sukses dibuat
+        unset($_SESSION['cart']); 
     } else {
         echo "Gagal menghubungkan ke server Payment Gateway. Respons: " . htmlspecialchars($response);
         exit();
     }
+
 } else {
-    header("Location: products.php");
+    echo "Gagal menyimpan data pesanan ke database: " . mysqli_error($conn);
     exit();
 }
 ?>
@@ -110,18 +106,27 @@ if (mysqli_query($conn, $query)) {
     <style>
         body { font-family: 'DM Sans', sans-serif; background-color: #f5ede2; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .pay-box { background: white; padding: 40px; border-radius: 10px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 450px; width: 100%; }
-        .btn-pay { background: #3d2b1f; color: white; border: none; padding: 12px 25px; font-size: 1rem; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 20px; width: 100%; }
+        .btn-pay { background: #3d2b1f; color: white; border: none; padding: 12px 25px; font-size: 1rem; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 20px; width: 100%; transition: background 0.2s; }
+        .btn-pay:hover { background: #5c4033; }
     </style>
 </head>
 <body>
 
 <div class="pay-box">
-    <h2 style="color: #3d2b1f;">Transaksi Berhasil Dibuat!</h2>
-    <p style="margin-top: 10px; color: #555;">Klik tombol di bawah ini untuk membuka halaman pembayaran resmi dan menyelesaikan order Anda.</p>
-    <table style="width:100%; margin: 20px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 10px 0; text-align: left; font-size: 0.95rem;">
-        <tr><td>ID Transaksi</td><td>: <b><?php echo $order_id; ?></b></td></tr>
-        <tr><td>Total Bayar</td><td>: <b>Rp <?php echo number_format($total_harga, 0, ',', '.'); ?></b></td></tr>
+    <h2 style="color: #3d2b1f; margin-bottom: 5px;">Transaksi Berhasil Dibuat!</h2>
+    <p style="margin-top: 10px; color: #555; font-size: 0.95rem;">Klik tombol di bawah ini untuk membuka halaman pembayaran resmi dan menyelesaikan order Anda.</p>
+    
+    <table style="width:100%; margin: 25px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 12px 0; text-align: left; font-size: 0.95rem; color: #3d2b1f;">
+        <tr>
+            <td style="padding: 4px 0;">ID Transaksi</td>
+            <td>: <b><?php echo $order_id; ?></b></td>
+        </tr>
+        <tr>
+            <td style="padding: 4px 0;">Total Bayar</td>
+            <td>: <b style="color: #c9973a;">Rp <?php echo number_format($total_harga, 0, ',', '.'); ?></b></td>
+        </tr>
     </table>
+    
     <button id="pay-button" class="btn-pay">Bayar Sekarang</button>
 </div>
 
@@ -154,5 +159,4 @@ if (mysqli_query($conn, $query)) {
     };
 </script>
 </body>
-</html>~
->>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
+</html>
