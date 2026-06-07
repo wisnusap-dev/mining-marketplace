@@ -1,49 +1,35 @@
 <?php
 session_start();
 include "../config/database.php";
-<<<<<<< HEAD
-if (!isset($_SESSION['user_id'])) { header("Location: ../login.php"); exit(); }
-=======
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../login.php");
     exit();
 }
->>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
   <title>PT.MARLIN JAYA MESIN — Mining Market</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/navbar.css">
   <link rel="stylesheet" href="../css/home.css">
   <link rel="stylesheet" href="../css/user_fx.css">
-=======
-  <title>PT.MARLIN JAYA MESIN</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../css/home.css">
-  <link rel="stylesheet" href="../css/navbar.css">
->>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
 </head>
 <body>
 
-<!-- PAGE LOADER -->
 <div id="user-loader">
   <div class="loader-gear">⚙️</div>
   <div class="loader-brand">Mining Market</div>
   <div class="loader-line"><div class="loader-line-fill"></div></div>
 </div>
 
-<!-- SCROLL PROGRESS -->
 <div id="scroll-progress"></div>
 
-<!-- NAVBAR -->
 <nav class="navbar">
+  <a href="index.php" class="nav-logo">
     <span class="nav-brand">Mining Market</span>
   </a>
   <ul class="nav-links">
@@ -59,7 +45,6 @@ if (!isset($_SESSION['user_id'])) {
   </div>
 </nav>
 
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.php">Home</a>
   <a href="products.php">Products</a>
@@ -69,7 +54,6 @@ if (!isset($_SESSION['user_id'])) {
   <a href="../logout.php" class="m-logout">Logout</a>
 </div>
 
-<!-- HERO -->
 <section class="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-bg"></div>
@@ -95,7 +79,6 @@ if (!isset($_SESSION['user_id'])) {
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats-strip reveal reveal-group">
   <div class="stat-item">
     <div class="stat-num count-up" data-target="200" data-suffix="+">200+</div>
@@ -115,7 +98,6 @@ if (!isset($_SESSION['user_id'])) {
   </div>
 </div>
 
-<!-- FEATURES -->
 <section class="section">
   <div class="section-label reveal">Keunggulan Kami</div>
   <h2 class="section-title reveal">Kenapa Memilih<br>Mining Market?</h2>
@@ -148,14 +130,13 @@ if (!isset($_SESSION['user_id'])) {
       <p>Setiap produk dilengkapi garansi resmi pabrikan sehingga investasi Anda terlindungi.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon"></div>
+      <div class="feature-icon">💡</div>
       <h3>Konsultasi Gratis</h3>
       <p>Tim ahli kami siap memberikan rekomendasi mesin yang paling tepat untuk kebutuhan tambang Anda.</p>
     </div>
   </div>
 </section>
 
-<!-- CTA BANNER -->
 <div class="cta-banner reveal">
   <div class="cta-text">
     <h2>Siap Tingkatkan Operasional?</h2>
@@ -169,10 +150,7 @@ if (!isset($_SESSION['user_id'])) {
 </footer>
 
 <script src="../js/navbar.js"></script>
-<<<<<<< HEAD
 <script src="../js/user.js"></script>
-=======
->>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
 <script>
 function toggleMenu() {
   document.getElementById('hamburger').classList.toggle('open');
