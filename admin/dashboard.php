@@ -49,16 +49,13 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
 </head>
 <body>
 
-<!-- PAGE LOADER -->
 <div id="page-loader">
   <div class="loader-logo">Mining Market</div>
   <div class="loader-bar"><div class="loader-bar-fill"></div></div>
 </div>
 
-<!-- SIDEBAR OVERLAY -->
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <img src="../logo/companies.png" alt="Logo">
@@ -89,7 +86,6 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
   <div class="sidebar-footer">© 2025 PT Marlinjaya Mesin</div>
 </aside>
 
-<!-- TOPBAR -->
 <header class="topbar">
   <div style="display:flex; align-items:center; gap:16px;">
     <button class="hamburger-admin" onclick="toggleSidebar()">
@@ -106,11 +102,9 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
   </div>
 </header>
 
-<!-- MAIN -->
 <div class="page-body">
   <main class="page-content">
 
-    <!-- SKELETON SCREEN -->
     <div class="skeleton-screen">
       <div class="stats-grid">
         <?php for ($i = 0; $i < 3; $i++): ?>
@@ -120,10 +114,8 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
       <div class="card" style="height: 340px; border-radius: var(--radius);" class="skeleton-block skeleton"></div>
     </div>
 
-    <!-- REAL CONTENT -->
     <div class="real-content" style="display:none;">
 
-      <!-- STATS -->
       <div class="stats-grid">
         <div class="stat-card fade-up">
           <div class="stat-icon">📦</div>
@@ -143,19 +135,14 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
           <div class="stat-value" style="font-size:1.4rem; color:var(--green);">Online</div>
           <div class="stat-sub">Terhubung aman</div>
         </div>
-      </div>
-<<<<<<< HEAD
-=======
-      <div class="stat-card fade-up">
+        <div class="stat-card fade-up">
           <div class="stat-icon">💰</div>
-          <div class="stat-label">Anggota Aktif</div>
+          <div class="stat-label">karyawan Aktif</div>
           <div class="stat-value" style="font-size:1.4rem; color:var(--green);">Online</div>
           <div class="stat-sub">Terhubung aman</div>
         </div>
       </div>
->>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
 
-      <!-- CHART -->
       <div class="card chart-card fade-up">
         <div class="chart-card-header">
           <h3>Pesanan 7 Hari Terakhir</h3>
@@ -166,7 +153,6 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
         </div>
       </div>
 
-      <!-- QUICK ACTIONS -->
       <div class="actions-grid fade-up">
         <a href="products.php" class="action-btn">
           <span class="action-icon">📦</span>
@@ -176,11 +162,7 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
           <span class="action-icon">📋</span>
           Laporan Order
         </a>
-<<<<<<< HEAD
         <a href="../user/index.php" class="action-btn" target="_blank">
-=======
-        <a href="../user/index.php" class="action-btn" >
->>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
           <span class="action-icon">🌐</span>
           Lihat Toko
         </a>
@@ -190,8 +172,7 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
         </a>
       </div>
 
-    </div><!-- end real-content -->
-  </main>
+    </div></main>
 </div>
 
 <script>
