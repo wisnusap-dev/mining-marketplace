@@ -7,6 +7,7 @@
     --text-dark: #332211;
     --text-muted: #777777;
     --card-white: #FFFFFF;
+  --nav-h: 72px;
 }
 
 * {
@@ -28,76 +29,13 @@ body {
     padding: 0 20px;
 }
 
-/* ======================= NAVBAR (Sesuai Referensi) ======================= */
-.gen-nav {
-    background-color: var(--bg-dark-brown);
-    height: 80px;
-    display: flex;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    color: var(--text-white);
-}
 
-.nav-container {
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-#gen-menu {
-    display: flex;
-    list-style: none;
-    align-items: center;
-    gap: 30px;
-}
-
-#gen-menu a {
-    text-decoration: none;
-    color: rgba(255,255,255,0.7);
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    transition: 0.3s;
-}
-
-#gen-menu a:hover, #gen-menu a.active {
-    color: var(--primary-gold);
-}
-
-.logout-btn {
-    border: 1px solid rgba(255,255,255,0.3);
-    padding: 8px 20px;
-    border-radius: 5px;
-}
-
-.logout-btn:hover {
-    border-color: var(--primary-gold);
-    background-color: var(--primary-gold);
-    color: var(--text-dark) !important;
-}
-
-/* Hamburger (Sembunyi default) */
-.menu-toggle { display: none; }
 
 /* ======================= HERO SECTION (Referensi image_6.png) ======================= */
 .hero-section {
     position: relative;
     height: 90vh; /* Hampir satu layar penuh */
-    padding-top: 80px; /* Jarak untuk Navbar fixed */
+    padding-top: var(--nav-h);
     display: flex;
     align-items: center;
     color: var(--text-white);
@@ -276,6 +214,42 @@ body {
     font-size: 0.95rem;
     line-height: 1.7;
     font-weight: 300;
+}
+
+/* ======================= CHECKOUT ACTIONS BUTTONS ======================= */
+.checkout-actions {
+    display: flex;
+    flex-direction: column; /* Menumpuk tombol ke bawah secara simetris */
+    gap: 12px;              /* Jarak antar tombol */
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Base style untuk menyamakan kedua tombol */
+.btn-confirm, 
+.btn-cancel {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;    /* Menghilangkan garis bawah link */
+    color: #ffffff !important; /* Memaksa warna teks menjadi putih */
+    background-color: #3d2b1f; /* Warna cokelat gelap bawaan fitur kamu */
+    border: none;
+    border-radius: 5px;       /* Membuat sudut tombol sedikit melengkung rapi */
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Efek Hover saat kursor menyentuh tombol */
+.btn-confirm:hover, 
+.btn-cancel:hover {
+    background-color: #261a12; /* Warna cokelat sedikit lebih gelap saat di-hover */
+    text-decoration: none;     /* Memastikan garis link tidak muncul kembali */
 }
 
 /* ======================= RESPONSIVE ======================= */

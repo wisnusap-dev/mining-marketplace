@@ -1,0 +1,366 @@
+/* ==========================================================
+   user_fx.css — Semua efek visual halaman user
+   ========================================================== */
+
+/* ─── PAGE LOADER ────────────────────────────────────────── */
+#user-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--brown, #2c1a0e);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#user-loader.out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-gear {
+  font-size: 3rem;
+  animation: spin 1.4s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loader-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 4px;
+  color: var(--gold, #c9973a);
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+.loader-line {
+  width: 160px;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.loader-line-fill {
+  height: 100%;
+  background: var(--gold, #c9973a);
+  border-radius: 99px;
+  animation: lineLoad 0.8s ease forwards;
+}
+
+@keyframes lineLoad { from { width: 0; } to { width: 100%; } }
+
+/* ─── SCROLL PROGRESS BAR ────────────────────────────────── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--gold, #c9973a), #f0d060);
+  z-index: 2000;
+  border-radius: 0 2px 2px 0;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(201,151,58,0.6);
+}
+
+/* ─── NAVBAR HIDE/SHOW ───────────────────────────────────── */
+.navbar {
+  transition: transform 0.35s ease, background 0.3s ease !important;
+}
+
+.navbar-hidden {
+  transform: translateY(-100%) !important;
+}
+
+/* ─── HERO CANVAS ────────────────────────────────────────── */
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-content {
+  will-change: transform;
+}
+
+/* ─── TYPED CURSOR ───────────────────────────────────────── */
+#typed-text::after {
+  content: '|';
+  animation: cursor 0.8s step-end infinite;
+  color: var(--gold, #c9973a);
+}
+
+@keyframes cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── SCROLL REVEAL ──────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.reveal-left  { transform: translateX(-32px); }
+.reveal.reveal-right { transform: translateX(32px); }
+.reveal.reveal-scale { transform: scale(0.94); }
+
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Staggered children */
+.reveal-group > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-group.revealed > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(2) { transition-delay: 0.12s; opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(3) { transition-delay: 0.19s; opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(4) { transition-delay: 0.26s; opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(5) { transition-delay: 0.33s; opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(6) { transition-delay: 0.40s; opacity: 1; transform: none; }
+
+/* ─── LAZY IMAGE ─────────────────────────────────────────── */
+img[data-src] {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+img[data-src].img-loaded,
+img:not([data-src]) {
+  opacity: 1;
+}
+
+/* Skeleton shimmer untuk gambar */
+.product-img-wrap {
+  position: relative;
+  background: linear-gradient(90deg, #e8ddd4 25%, #f0e8e0 50%, #e8ddd4 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.product-img-wrap.loaded {
+  animation: none;
+  background: none;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─── PRODUCT CARD TILT ──────────────────────────────────── */
+.product-card {
+  will-change: transform;
+  transition: transform 0.15s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+/* ─── SKELETON CARDS (product page) ─────────────────────── */
+.skeleton-card {
+  background: var(--white, #fff);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(201,151,58,0.1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.skeleton-card.sk-out {
+  opacity: 0;
+  transform: scale(0.97);
+  pointer-events: none;
+  position: absolute;
+}
+
+.sk-img {
+  height: 220px;
+  background: linear-gradient(90deg, #e8ddd4 25%, #f0e8e0 50%, #e8ddd4 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.sk-body { padding: 24px; }
+.sk-line {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #ede5db 25%, #f5efe7 50%, #ede5db 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  margin-bottom: 10px;
+}
+.sk-line.sm  { width: 60%; height: 10px; }
+.sk-line.lg  { height: 28px; width: 80%; margin-bottom: 16px; }
+.sk-line.btn { height: 38px; border-radius: 8px; margin-top: 14px; }
+
+/* ─── TOAST ──────────────────────────────────────────────── */
+.user-toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 8000;
+  background: var(--brown, #2c1a0e);
+  color: var(--cream, #fdf6ec);
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: 0 8px 30px rgba(44,26,14,0.25);
+  border-left: 3px solid var(--gold, #c9973a);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  max-width: 300px;
+}
+
+.user-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.user-toast.user-toast-error {
+  border-left-color: #e53935;
+}
+
+/* ─── STAT NUMBERS ───────────────────────────────────────── */
+.stat-num {
+  transition: color 0.3s ease;
+}
+
+/* ─── FEATURE CARDS extra effect ────────────────────────── */
+.feature-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+/* ─── MOBILE MENU ANIMATION ──────────────────────────────── */
+.mobile-menu {
+  transform: translateY(-8px);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease, display 0s 0.25s;
+  display: none;
+}
+
+.mobile-menu.open {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* ─── CTA BANNER glow pulse ──────────────────────────────── */
+.cta-banner {
+  animation: ctaGlow 4s ease-in-out infinite;
+}
+
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,151,58,0); }
+  50%       { box-shadow: 0 0 40px 4px rgba(201,151,58,0.12); }
+}
+
+/* ─── ABOUT PAGE — floating card ────────────────────────── */
+.about-card {
+  animation: floatCard 5s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ─── CONTACT page — icon bounce on hover ───────────────── */
+.info-icon {
+  transition: transform 0.3s ease;
+}
+
+.info-item:hover .info-icon {
+  transform: scale(1.2) rotate(-5deg);
+}
+
+/* ─── FOOTER appear ──────────────────────────────────────── */
+footer {
+  opacity: 0;
+  animation: footerIn 0.8s ease 0.3s forwards;
+}
+
+@keyframes footerIn {
+  to { opacity: 1; }
+}
+
+/* ─── GOLD UNDERLINE LINK HOVER ──────────────────────────── */
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 18px;
+  right: 18px;
+  height: 1px;
+  background: var(--gold-light, #e4c185);
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+}
+
+.nav-links a:hover::before {
+  transform: scaleX(1);
+}
+
+/* ─── SCROLL DOWN INDICATOR (hero) ───────────────────────── */
+.scroll-down {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(253,246,236,0.4);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.scroll-down span {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--gold, #c9973a));
+  animation: scrollLine 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  50%  { transform: scaleY(1); transform-origin: top; }
+  51%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .user-toast {
+    bottom: 20px;
+    right: 16px;
+    left: 16px;
+    max-width: none;
+  }
+
+  .about-card {
+    animation: none;
+  }
+}
