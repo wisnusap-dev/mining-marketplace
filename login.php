@@ -21,8 +21,6 @@ if (isset($_POST['login'])) {
         $data  = mysqli_fetch_assoc($query);
 
         // ── Deteksi nama kolom ID yang dipakai di database ───────
-        // Bisa: id_user, id, user_id — cek ketiganya
-        // Kolom ID — dari screenshot DB pakai id_user
         $user_id_val = $data['id_user'] ?? $data['id'] ?? $data['user_id'] ?? null;
 
         // ── Deteksi nama kolom password ───────────────────────────
@@ -45,7 +43,6 @@ if (isset($_POST['login'])) {
                 && !password_verify($password, $db_pw)) {
                 $new_hash = password_hash($password, PASSWORD_DEFAULT);
                 $uid = (int) $user_id_val;
-                // Coba update dengan nama kolom id yang benar
                 foreach (['id_user','id','user_id'] as $col) {
                     if (isset($data[$col])) {
                         mysqli_query($conn, "UPDATE users SET password='$new_hash' WHERE $col='$uid'");
@@ -65,10 +62,8 @@ if (isset($_POST['login'])) {
             $login_error = "Password salah.";
         }
     } else {
-        // Tampilkan error MySQL jika ada (membantu debug)
         $mysql_err = mysqli_error($conn);
-        $login_error = "Akun tidak ditemukan."
-            . ($mysql_err ? " [DB: $mysql_err]" : "");
+        $login_error = "Akun tidak ditemukan." . ($mysql_err ? " [DB: $mysql_err]" : "");
     }
 }
 ?>
@@ -93,7 +88,7 @@ if (isset($_POST['login'])) {
       --border:     #e0d4c8;
     }
     html, body { height: 100%; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--brown); display: flex; min-height: 100vh; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--brown); display: flex; min-height: 100vh; overflow-x: hidden; }
 
     /* LOADER */
     #loader { position:fixed;inset:0;z-index:9999;background:var(--brown);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .45s ease,visibility .45s ease; }
@@ -169,6 +164,8 @@ if (isset($_POST['login'])) {
     .bottom-link { text-align:center;margin-top:22px;font-size:.85rem;color:var(--muted); }
     .bottom-link a { color:var(--brown);font-weight:600;text-decoration:none;transition:color .2s; }
     .bottom-link a:hover { color:var(--gold); }
+    .back-link { display:block; text-align:center; margin-top:12px; font-size:.85rem; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .back-link:hover { color:var(--brown); }
 
     @media (max-width:820px) { body{flex-direction:column;overflow-y:auto;} .panel-left{flex:none;padding:48px 28px 32px;} .feature-list{display:none;} .panel-right{width:100%;padding:40px 28px 60px;} }
     @media (max-width:420px) { .panel-right{padding:32px 18px 50px;} }
@@ -182,7 +179,6 @@ if (isset($_POST['login'])) {
   <div class="ld-bar"><div class="ld-fill"></div></div>
 </div>
 
-<!-- LEFT -->
 <div class="panel-left">
   <div class="deco-ring r1"></div>
   <div class="deco-ring r2"></div>
@@ -198,7 +194,6 @@ if (isset($_POST['login'])) {
   </div>
 </div>
 
-<!-- RIGHT -->
 <div class="panel-right">
   <div class="auth-box">
     <div class="eyebrow">Akses Platform</div>
@@ -209,7 +204,6 @@ if (isset($_POST['login'])) {
     <div class="alert-err">⚠️ <span><?php echo htmlspecialchars($login_error); ?></span></div>
     <?php endif; ?>
 
-    <!-- Google -->
     <a href="auth/google.php" class="btn-google">
       <svg width="18" height="18" viewBox="0 0 18 18">
         <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
@@ -255,6 +249,7 @@ if (isset($_POST['login'])) {
     <div class="bottom-link">
       Belum punya akun? <a href="register.php">Daftar di sini →</a>
     </div>
+    <a href="index.php" class="back-link">← Kembali ke Beranda</a>
   </div>
 </div>
 
@@ -284,5 +279,6 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   }, 4000);
 });
 </script>
+
 </body>
 </html>

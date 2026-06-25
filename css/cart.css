@@ -22,6 +22,7 @@ body {
 
 /* ===== FOOTER ===== */
 footer {
+<<<<<<< HEAD
   background: var(--brown);
   color: rgba(253,246,236,0.4);
   text-align: center;
@@ -29,9 +30,22 @@ footer {
   font-size: 0.82rem;
   border-top: 1px solid rgba(201,151,58,0.1);
   letter-spacing: 1px;
+=======
+  background: var(--brown-mid); /* Disesuaikan ke var aktif agar tidak transparan */
+  padding: 26px 40px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  flex-wrap: wrap; 
+  gap: 5px;
+  font-size: 0.78rem; 
+  color: rgba(245,239,230,0.5);
+  border-top: 2px solid var(--gold); /* Disesuaikan ke var aktif */
+>>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
 }
-
-footer span { color: var(--gold); }
+footer a { color: var(--gold-light); text-decoration: none; }
+footer a:hover { color: #f0d998; }
+footer .dot { margin: 0 5px; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {

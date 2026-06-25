@@ -28,7 +28,7 @@
       padding-top: calc(var(--nav-h) + 56px);
       padding-bottom: 52px;
       text-align: center;
-      background: linear-gradient(170deg, #ede3d5 0%, var(--cream-bg) 100%);
+      background: var(--brown-dark);
       border-bottom: 2px solid var(--gold-border);
     }
     .eyebrow {
@@ -38,9 +38,9 @@
     }
     .page-hero h1 {
       font-size: clamp(2rem, 6vw, 3.8rem); font-weight: 700;
-      color: var(--brown-dark); letter-spacing: 0.02em; line-height: 1.1;
+      color: var(--cream-bg); letter-spacing: 0.02em; line-height: 1.1;
     }
-    .page-hero p { font-size: 0.93rem; color: var(--text-muted); margin-top: 10px; }
+    .page-hero p { font-size: 0.93rem; color: var(--cream-bg); margin-top: 10px; }
 
     /* MAIN WRAP */
     .contact-wrap {

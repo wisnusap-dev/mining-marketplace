@@ -32,7 +32,9 @@ include "../config/database.php";
     <li><a href="index.php">Home</a></li>
     <li><a href="products.php">Products</a></li>
     <li><a href="about.php" class="active">About</a></li>
-    <li><a href="contact.php">Contact</a></li>    <li><a href="../logout.php" class="logout-btn">Logout</a></li>
+    <li><a href="contact.php">Contact</a></li>
+    <!-- <li><a href="cart.php">🛒 Keranjang</a></li> -->
+    <li><a href="../logout.php" class="logout-btn">Logout</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -43,7 +45,9 @@ include "../config/database.php";
   <a href="index.php">Home</a>
   <a href="products.php">Products</a>
   <a href="about.php">About</a>
-  <a href="contact.php">Contact Us</a>  <a href="../logout.php" class="m-logout">Logout</a>
+  <a href="contact.php">Contact Us</a>
+  <a href="cart.php">🛒 Keranjang</a>
+  <a href="../logout.php" class="m-logout">Logout</a>
 </div>
 
 <div class="about-wrapper">
@@ -56,7 +60,7 @@ include "../config/database.php";
     </p>
     <div style="margin-top: 20px; display:flex; gap:12px; flex-wrap:wrap;">
       <a href="index.php" class="button">Kembali ke Beranda</a>
-      <a href="https://www.google.com/maps?q=pt+marlin+jaya+mesin" target="_blank" rel="noopener" class="button">📍 Lihat di Maps</a>
+      <a href="https://maps.google.com" target="_blank" rel="noopener" class="button">📍 Lihat di Maps</a>
     </div>
   </div>
 
@@ -70,6 +74,7 @@ include "../config/database.php";
         <p>Informasi struktur pemegang saham dan modal perusahaan yang terverifikasi.</p>
       </div>
     </div>
+
     <div class="gallery-item reveal">
       <img data-src="../images/Team/team2.jpg"
            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -79,6 +84,7 @@ include "../config/database.php";
         <p>Terdaftar sebagai entitas aktif menurut catatan Companies House Indonesia.</p>
       </div>
     </div>
+
     <div class="gallery-item reveal">
       <img data-src="../images/Team/lokas.jpg"
            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -88,6 +94,7 @@ include "../config/database.php";
         <p>Jl. Raya Perancis, Komp. Ruko Mutiara Kosambi 2 Blok A No.42, TANGERANG.</p>
       </div>
     </div>
+
     <div class="gallery-item reveal">
       <img data-src="../images/Team/badanhukum.jpg"
            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -97,19 +104,22 @@ include "../config/database.php";
         <p>PT. Marlin Jaya Mesin terdaftar resmi sebagai Perseroan Terbatas.</p>
       </div>
     </div>
+
     <div class="gallery-item reveal">
       <img data-src="../images/Team/fakta.jpg"
            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
            alt="Import & Eksport">
       <div class="gallery-overlay">
-        <h3>Import &amp; Eksport</h3>
-        <p>Merangkum kinerja impor-ekspor global, volume pengiriman, dan mitra dagang utama.</p>
+        <h3>Import & Eksport</h3>
+        <p>Merangkum kinerja impor-ekspor global, volume pengiriman, dan mitra dagang utama PT Marlin Jaya Mesin.</p>
       </div>
     </div>
   </div>
 </div>
 
-<footer>© 2025 <span>PT Marlinjaya Mesin</span> · Mining Market · All rights reserved</footer>
+<footer>
+  © <?php echo date('Y'); ?> <span>PT Marlin Jaya Mesin</span> · Mining Market · All rights reserved
+</footer>
 
 <script src="../js/navbar.js"></script>
 <script src="../js/user.js"></script>

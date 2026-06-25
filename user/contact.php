@@ -1,7 +1,11 @@
 <?php
 session_start();
 include "../config/database.php";
-if (!isset($_SESSION['user_id'])) { header("Location: ../login.php"); exit(); }
+
+if (!isset($_SESSION['user_id'])) { 
+    header("Location: ../login.php"); 
+    exit(); 
+}
 
 $success = false;
 $error   = '';
@@ -40,14 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
 
 <nav class="navbar">
   <a href="index.php" class="nav-logo">
-    <img src="../logo/companies.png" alt="Logo">
     <span class="nav-brand">Mining Market</span>
   </a>
   <ul class="nav-links">
     <li><a href="index.php">Home</a></li>
     <li><a href="products.php">Products</a></li>
     <li><a href="about.php">About</a></li>
-    <li><a href="contact.php" class="active">Contact</a></li>    <li><a href="../logout.php" class="logout-btn">Logout</a></li>
+    <li><a href="contact.php" class="active">Contact</a></li>
+    <!-- <li><a href="cart.php">🛒 Keranjang</a></li> -->
+    <li><a href="../logout.php" class="logout-btn">Logout</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -58,7 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
   <a href="index.php">Home</a>
   <a href="products.php">Products</a>
   <a href="about.php">About</a>
-  <a href="contact.php">Contact Us</a>  <a href="../logout.php" class="m-logout">Logout</a>
+  <a href="contact.php">Contact Us</a>
+  <a href="cart.php">🛒 Keranjang</a>
+  <a href="../logout.php" class="m-logout">Logout</a>
 </div>
 
 <div class="page-hero reveal">
@@ -149,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
 
 <footer>
   <span>© <?php echo date('Y'); ?></span>
-  <a href="index.php">PT Marlinjaya Mesin</a>
+  <a href="index.php">PT Marlin Jaya Mesin</a>
   <span class="dot">·</span>
   <span>Mining Market</span>
   <span class="dot">·</span>
@@ -163,9 +170,15 @@ function toggleMenu() {
   document.getElementById('hamburger').classList.toggle('open');
   document.getElementById('mobileMenu').classList.toggle('open');
 }
+
 <?php if ($success): ?>
-window.addEventListener('load', () => showToast('Pesan berhasil terkirim! 📨'));
+window.addEventListener('load', () => {
+  if (typeof showToast === 'function') {
+    showToast('Pesan berhasil terkirim! 📨');
+  }
+});
 <?php endif; ?>
 </script>
+
 </body>
 </html>

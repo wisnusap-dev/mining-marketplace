@@ -275,6 +275,8 @@ body {
   margin-left: var(--sidebar-w);
   padding-top: var(--topbar-h);
   min-height: 100vh;
+  /* Kurangi 100% dengan lebar sidebar biar nggak meluber ke kanan */
+  width: calc(100% - var(--sidebar-w));
 }
 
 .page-content {

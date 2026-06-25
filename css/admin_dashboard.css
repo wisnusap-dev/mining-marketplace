@@ -13,8 +13,19 @@
   background: var(--card-bg);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
+<<<<<<< HEAD
   display: flex;
   flex-direction: column;
+=======
+<<<<<<< HEAD
+  display: flex;
+  flex-direction: column;
+=======
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1rf);
+>>>>>>> 3d454b37c846b98aa976a3391e664398497703fc
+>>>>>>> c7cfe54192b811e5917d6d037444d60968c3fb13
   gap: 6px;
   position: relative;
   overflow: hidden;

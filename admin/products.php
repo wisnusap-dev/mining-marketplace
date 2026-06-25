@@ -7,52 +7,62 @@ if (!isset($_SESSION['admin_logged_in'])) {
     exit();
 }
 
-$msg = '';
-
+// SIMPAN PRODUK BARU
 if (isset($_POST['simpan'])) {
-    $name        = mysqli_real_escape_string($conn, $_POST['name']);
-    $price       = (int) $_POST['price'];
-    $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $image       = $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], '../images/products/' . $image);
-    mysqli_query($conn, "INSERT INTO products (name, description, price, image) VALUES ('$name', '$description', '$price', '$image')");
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $desc = mysqli_real_escape_string($conn, $_POST['description']);
+    $image = $_FILES['image']['name'];
+    if($image) move_uploaded_file($_FILES['image']['tmp_name'], '../images/products/' . $image);
+    mysqli_query($conn, "INSERT INTO products (name, description, image) VALUES ('$name', '$desc', '$image')");
     header("Location: products.php?msg=added");
     exit();
 }
 
-if (isset($_GET['hapus'])) {
-    $id = (int) $_GET['hapus'];
-    mysqli_query($conn, "DELETE FROM products WHERE id='$id'");
-    header("Location: products.php?msg=deleted");
-    exit();
-}
-
-$edit_data = null;
-if (isset($_GET['edit'])) {
-    $id        = (int) $_GET['edit'];
-    $res       = mysqli_query($conn, "SELECT * FROM products WHERE id='$id'");
-    $edit_data = mysqli_fetch_assoc($res);
-}
-
+// UPDATE PRODUK
 if (isset($_POST['update'])) {
-    $id          = (int) $_POST['id'];
-    $name        = mysqli_real_escape_string($conn, $_POST['name']);
-    $price       = (int) $_POST['price'];
-    $description = mysqli_real_escape_string($conn, $_POST['description']);
-    if ($_FILES['image']['name'] != '') {
+    $id = (int) $_POST['id'];
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $desc = mysqli_real_escape_string($conn, $_POST['description']);
+    if (!empty($_FILES['image']['name'])) {
         $image = $_FILES['image']['name'];
         move_uploaded_file($_FILES['image']['tmp_name'], '../images/products/' . $image);
-        mysqli_query($conn, "UPDATE products SET name='$name', price='$price', description='$description', image='$image' WHERE id='$id'");
+        mysqli_query($conn, "UPDATE products SET name='$name', description='$desc', image='$image' WHERE id='$id'");
     } else {
-        mysqli_query($conn, "UPDATE products SET name='$name', price='$price', description='$description' WHERE id='$id'");
+        mysqli_query($conn, "UPDATE products SET name='$name', description='$desc' WHERE id='$id'");
     }
     header("Location: products.php?msg=updated");
     exit();
 }
 
-$products  = mysqli_query($conn, "SELECT * FROM products ORDER BY id DESC");
+// HAPUS PRODUK
+// --- PROSES HAPUS ---
+if (isset($_GET['hapus'])) {
+    $id_hapus = (int)$_GET['hapus'];
+    mysqli_query($conn, "DELETE FROM products WHERE id = '$id_hapus'");
+    // Redirect supaya URL bersih kembali
+    header("Location: products.php"); 
+    exit();
+}
+
+// --- PROSES AMBIL DATA EDIT ---
+$edit_data = null;
+if (isset($_GET['edit'])) {
+    $id_edit = (int)$_GET['edit'];
+    $res = mysqli_query($conn, "SELECT * FROM products WHERE id = '$id_edit'");
+    $edit_data = mysqli_fetch_assoc($res);
+}
+
+// AMBIL SEMUA PRODUK
+$products = mysqli_query($conn, "SELECT * FROM products ORDER BY id DESC");
+$prod_count = mysqli_num_rows($products); // <-- INI YANG TADI BIKIN WARNING
+
+// ... (kode di atasnya tetap sama)
+$products = mysqli_query($conn, "SELECT * FROM products ORDER BY id DESC");
 $prod_count = mysqli_num_rows($products);
-$username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
+
+// TAMBAHKAN BARIS INI UNTUK MEMPERBAIKI WARNING
+$username = $_SESSION['username'] ?? 'Admin'; 
+$username_initial = strtoupper(substr($username, 0, 1));
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -85,7 +95,7 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
     <div class="nav-section-label">Menu</div>
     <a href="dashboard.php" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
     <a href="products.php"  class="nav-item active"><span class="nav-icon">📦</span> Kelola Produk</a>
-    <a href="orders.php"    class="nav-item"><span class="nav-icon">📋</span> Laporan Order</a>
+    <!-- <a href="orders.php"    class="nav-item"><span class="nav-icon">📋</span> Laporan Order</a> -->
     <div class="nav-section-label" style="margin-top:12px;">Akun</div>
     <a href="../logout.php" class="nav-item logout" data-confirm="Yakin ingin logout?"><span class="nav-icon">⏻</span> Logout</a>
   </nav>
@@ -116,24 +126,9 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
     </div>
     <?php endif; ?>
 
-    <!-- SKELETON -->
-    <div class="skeleton-screen">
-      <div style="display:grid;grid-template-columns:360px 1fr;gap:24px;">
-        <div class="card" style="padding:28px;height:420px;">
-          <div class="skeleton skeleton-h lg" style="width:60%;margin-bottom:20px;"></div>
-          <?php for ($i = 0; $i < 4; $i++): ?>
-          <div class="skeleton skeleton-h" style="margin-bottom:16px;"></div>
-          <?php endfor; ?>
-        </div>
-        <div class="card" style="height:420px;"></div>
-      </div>
-    </div>
-
-    <!-- REAL CONTENT -->
-    <div class="real-content" style="display:none;">
+    <div class="real-content">
       <div class="two-col">
 
-        <!-- FORM -->
         <div class="card form-card fade-up">
           <h3><?php echo $edit_data ? '✏️ Edit Produk' : '➕ Tambah Produk'; ?></h3>
           <form method="POST" enctype="multipart/form-data">
@@ -146,26 +141,20 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
               <input type="text" name="name" placeholder="Nama mesin/alat..." required
                      value="<?php echo $edit_data ? htmlspecialchars($edit_data['name']) : ''; ?>">
             </div>
+            
             <div class="form-group">
-              <label>Harga (Rp)</label>
-              <input type="number" name="price" placeholder="Contoh: 50000000" required
-                     value="<?php echo $edit_data ? $edit_data['price'] : ''; ?>">
+              <label>Deskripsi Detail</label>
+              <textarea name="description" placeholder="Masukkan deskripsi singkat/detail..." required><?php echo $edit_data ? htmlspecialchars($edit_data['description']) : ''; ?></textarea>
             </div>
-            <div class="form-group">
-              <label>Deskripsi</label>
-              <textarea name="description" placeholder="Deskripsi singkat produk..."><?php echo $edit_data ? htmlspecialchars($edit_data['description']) : ''; ?></textarea>
-            </div>
+
             <div class="form-group">
               <label>Foto Produk <?php echo $edit_data ? '(opsional)' : ''; ?></label>
               <div class="upload-area" onclick="document.getElementById('imgInput').click()">
                 <div class="upload-icon">📷</div>
                 <div class="upload-label">Klik untuk pilih gambar</div>
-                <div class="upload-hint">JPG, PNG, WEBP — maks 5MB</div>
-                <div class="upload-name" id="uploadName">
-                  <?php echo $edit_data ? htmlspecialchars($edit_data['image']) : ''; ?>
-                </div>
+                <div class="upload-name" id="uploadName"><?php echo $edit_data ? htmlspecialchars($edit_data['image']) : ''; ?></div>
               </div>
-              <input type="file" name="image" id="imgInput" accept="image/*"
+              <input type="file" name="image" id="imgInput" accept="image/*" style="display:none"
                      <?php echo $edit_data ? '' : 'required'; ?>>
             </div>
 
@@ -178,7 +167,6 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
           </form>
         </div>
 
-        <!-- TABLE -->
         <div class="card products-card fade-up">
           <div class="products-card-header">
             <h3>Daftar Produk</h3>
@@ -190,33 +178,29 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
                 <tr>
                   <th>Foto</th>
                   <th>Nama Produk</th>
-                  <th>Harga</th>
+                  <th>Deskripsi Singkat</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                <?php
-                // Reset pointer
-                mysqli_data_seek($products, 0);
-                while ($row = mysqli_fetch_assoc($products)):
-                ?>
+                <?php while ($row = mysqli_fetch_assoc($products)): ?>
                 <tr>
                   <td>
                     <?php if ($row['image']): ?>
-                    <img src="../images/products/<?php echo $row['image']; ?>"
-                         class="product-thumb"
-                         alt="<?php echo htmlspecialchars($row['name']); ?>">
+                    <img src="../images/products/<?php echo $row['image']; ?>" class="product-thumb" alt="...">
                     <?php else: ?>
                     <div class="thumb-placeholder">📦</div>
                     <?php endif; ?>
                   </td>
                   <td class="product-name-cell"><?php echo htmlspecialchars($row['name']); ?></td>
-                  <td class="product-price-cell">Rp <?php echo number_format($row['price'], 0, ',', '.'); ?></td>
+                  <td class="product-desc-cell" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.85rem; color: #666;">
+                    <?php echo htmlspecialchars($row['description']); ?>
+                  </td>
                   <td>
                     <div class="row-actions">
                       <a href="products.php?edit=<?php echo $row['id']; ?>" class="btn-row edit">✏️ Edit</a>
                       <a href="products.php?hapus=<?php echo $row['id']; ?>" class="btn-row delete"
-                         data-confirm="Hapus produk '<?php echo htmlspecialchars($row['name']); ?>'?">🗑 Hapus</a>
+                         data-confirm="Hapus produk ini?">🗑 Hapus</a>
                     </div>
                   </td>
                 </tr>
@@ -225,10 +209,8 @@ $username_initial = strtoupper(substr($_SESSION['username'], 0, 1));
             </table>
           </div>
         </div>
-
       </div>
     </div>
-
   </main>
 </div>
 

@@ -2,10 +2,19 @@
 session_start();
 include "../config/database.php";
 
+// Proteksi halaman: jika user belum login, lempar ke login.php
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
+// Mengambil data produk dari database
 $products = mysqli_query($conn, "SELECT * FROM products");
 $count    = mysqli_num_rows($products);
 $rows     = [];
-while ($r = mysqli_fetch_assoc($products)) $rows[] = $r;
+while ($r = mysqli_fetch_assoc($products)) {
+    $rows[] = $r;
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -25,12 +34,12 @@ while ($r = mysqli_fetch_assoc($products)) $rows[] = $r;
   <div class="loader-brand">Mining Market</div>
   <div class="loader-line"><div class="loader-line-fill"></div></div>
 </div>
+
 <div id="scroll-progress"></div>
 
 <!-- NAVBAR -->
 <nav class="navbar">
   <a href="index.php" class="nav-logo">
-    <img src="../logo/companies.png" alt="Logo">
     <span class="nav-brand">Mining Market</span>
   </a>
   <ul class="nav-links">
@@ -44,6 +53,7 @@ while ($r = mysqli_fetch_assoc($products)) $rows[] = $r;
     <span></span><span></span><span></span>
   </div>
 </nav>
+
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.php">Home</a>
   <a href="products.php">Products</a>
@@ -56,7 +66,7 @@ while ($r = mysqli_fetch_assoc($products)) $rows[] = $r;
 <div class="page-header">
   <div class="label reveal">Katalog Kami</div>
   <h1 class="reveal">Produk<br>Tambang</h1>
-  <p class="reveal">Tertarik dengan produk kami? Hubungi langsung via Email atau WhatsApp.</p>
+  <p class="reveal">Mesin & peralatan berat bersertifikat untuk operasional pertambangan. Tersedia pengiriman ke seluruh Indonesia.</p>
 </div>
 
 <!-- FILTER -->
@@ -72,7 +82,7 @@ while ($r = mysqli_fetch_assoc($products)) $rows[] = $r;
     Menampilkan <span id="countDisplay"><?php echo $count; ?></span> produk
   </div>
 
-  <!-- SKELETON -->
+  <!-- SKELETON LOADER -->
   <div class="product-grid" id="skeletonGrid" aria-hidden="true">
     <?php for ($i = 0; $i < min(6, $count ?: 6); $i++): ?>
     <div class="skeleton-card">
@@ -92,22 +102,32 @@ while ($r = mysqli_fetch_assoc($products)) $rows[] = $r;
   <div class="product-grid" id="productGrid" style="display:none;">
     <?php foreach ($rows as $row): ?>
     <div class="product-card" data-name="<?php echo strtolower(htmlspecialchars($row['name'])); ?>">
-      <div class="product-img-wrap">
+      <div class="product-img-wrap" id="wrap-<?php echo $row['id']; ?>">
         <img class="product-img"
-             data-src="../images/products/<?php echo $row['image']; ?>"
-             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+             src="../images/products/<?php echo $row['image']; ?>"
              alt="<?php echo htmlspecialchars($row['name']); ?>"
              onload="this.closest('.product-img-wrap').classList.add('loaded')">
       </div>
       <div class="product-body">
         <div class="product-badge">Alat Tambang</div>
-        <div class="product-name"><?php echo htmlspecialchars($row['name']); ?></div>
-        <p class="product-desc"><?php echo htmlspecialchars($row['description']); ?></p>
-        <div class="product-price">Rp <?php echo number_format($row['price'], 0, ',', '.'); ?></div>
-        <div class="product-actions">
-          <!-- Klik → buka halaman detail produk -->
-          <a href="detail.php?id=<?php echo $row['id']; ?>" class="btn-buy">Lihat Detail & Pesan</a>
+        <div class="product-name" style="margin-bottom: 8px;"><?php echo htmlspecialchars($row['name']); ?></div>
+        
+        <?php 
+          // Membuat deskripsi singkat (maksimal 90 karakter)
+          $desc = $row['description'];
+          $short_desc = strlen($desc) > 90 ? substr($desc, 0, 90) . '...' : $desc;
+        ?>
+        <p class="product-desc" style="font-size: 0.9rem; color: #8a7060; margin-bottom: 20px; line-height: 1.5; min-height: 40px;">
+          <?php echo htmlspecialchars($short_desc); ?>
+        </p>
+        
+        <!-- Harga sudah dihapus total -->
+        
+        <!-- TOMBOL DIUBAH MENJADI DETAIL SAJA -->
+        <div class="product-actions" style="display: flex; justify-content: center;">
+          <a href="detail.php?id=<?php echo $row['id']; ?>" class="btn-buy" style="width: 100%; text-align: center; justify-content: center;">Lihat Detail</a>
         </div>
+
       </div>
     </div>
     <?php endforeach; ?>
@@ -116,11 +136,11 @@ while ($r = mysqli_fetch_assoc($products)) $rows[] = $r;
   <div class="empty-state" id="emptyState" style="display:none;">
     <div class="icon">🔍</div>
     <h3>Produk Tidak Ditemukan</h3>
-    <p>Coba kata kunci yang berbeda.</p>
+    <p>Coba kata kunci pencarian yang berbeda.</p>
   </div>
 </div>
 
-<footer>&copy; 2025 <span>PT Marlinjaya Mesin</span> · Mining Market</footer>
+<footer>&copy; <?php echo date('Y'); ?> <span>PT Marlin Jaya Mesin</span> · Mining Market</footer>
 
 <script src="../js/navbar.js"></script>
 <script src="../js/user.js"></script>
@@ -129,14 +149,19 @@ function toggleMenu() {
   document.getElementById('hamburger').classList.toggle('open');
   document.getElementById('mobileMenu').classList.toggle('open');
 }
+
+// Efek transisi dari Skeleton Loader ke Grid Produk Asli
 window.addEventListener('load', () => {
   setTimeout(() => {
-    document.getElementById('skeletonGrid').style.display = 'none';
-    document.getElementById('productGrid').style.display  = 'grid';
+    const skeleton = document.getElementById('skeletonGrid');
+    if (skeleton) skeleton.style.display = 'none';
+    document.getElementById('productGrid').style.display = 'grid';
   }, 600);
 });
+
+// Fungsi pencarian produk (Live Filter)
 function filterProducts() {
-  const q = document.getElementById('searchInput').value.toLowerCase();
+  const q     = document.getElementById('searchInput').value.toLowerCase();
   const cards = document.querySelectorAll('#productGrid .product-card');
   let vis = 0;
   cards.forEach(c => {
@@ -148,5 +173,6 @@ function filterProducts() {
   document.getElementById('emptyState').style.display = vis === 0 ? 'block' : 'none';
 }
 </script>
+
 </body>
 </html>

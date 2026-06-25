@@ -1,21 +1,56 @@
-<?php
+<!-- <?php
 session_start();
 include "../config/database.php";
 
-if (isset($_GET['id'])) {
-    if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
-    if (!in_array($_GET['id'], $_SESSION['cart'])) array_push($_SESSION['cart'], $_GET['id']);
-    header("Location: cart.php?added=1");
+// Proteksi halaman: pastikan user sudah login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php");
     exit();
 }
 
+// 1. Logika Tambah ke Keranjang Biasa (Akan diarahkan ke cart.php)
+if (isset($_GET['id'])) {
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+    
+    if (isset($_SESSION['cart'][$id])) {
+        $_SESSION['cart'][$id]++;
+    } else {
+        $_SESSION['cart'][$id] = 1;
+    }
+    header("Location: cart.php?added=1"); // Ditambah parameter info toast
+    exit();
+}
+
+// 2. Logika BELI LANGSUNG (Akan diarahkan langsung ke checkout.php)
+if (isset($_GET['buy_now'])) {
+    $id = mysqli_real_escape_string($conn, $_GET['buy_now']);
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+    
+    if (isset($_SESSION['cart'][$id])) {
+        $_SESSION['cart'][$id]++;
+    } else {
+        $_SESSION['cart'][$id] = 1; 
+    }
+    header("Location: checkout.php"); 
+    exit();
+}
+
+// 3. Logika Hapus Produk dari Keranjang
 if (isset($_GET['remove'])) {
-    $key = array_search($_GET['remove'], $_SESSION['cart'] ?? []);
-    if ($key !== false) unset($_SESSION['cart'][$key]);
+    $id_remove = mysqli_real_escape_string($conn, $_GET['remove']);
+    if (isset($_SESSION['cart'][$id_remove])) {
+        unset($_SESSION['cart'][$id_remove]);
+    }
     header("Location: cart.php");
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -63,7 +98,6 @@ if (isset($_GET['remove'])) {
 
 <nav class="navbar">
   <a href="index.php" class="nav-logo">
-    <img src="../logo/companies.png" alt="Logo">
     <span class="nav-brand">Mining Market</span>
   </a>
   <ul class="nav-links">
@@ -101,7 +135,12 @@ if (isset($_GET['remove'])) {
 
   <?php else:
     $total = 0;
-    $ids   = implode(',', array_map('intval', $_SESSION['cart']));
+    // Perbaikan pengambilan ID yang valid dari key Session array
+    $cart_ids = array_map(function($val) use ($conn) {
+        return "'" . mysqli_real_escape_string($conn, $val) . "'";
+    }, array_keys($_SESSION['cart']));
+    $ids = implode(',', $cart_ids);
+    
     $query = mysqli_query($conn, "SELECT * FROM products WHERE id IN ($ids)");
   ?>
   <div class="cart-card reveal">
@@ -110,26 +149,33 @@ if (isset($_GET['remove'])) {
         <thead>
           <tr>
             <th>Produk</th>
-            <th>Harga</th>
+            <th>Harga Satuan</th>
+            <th style="text-align: center;">Jumlah</th>
+            <th>Subtotal</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
-          <?php while ($row = mysqli_fetch_assoc($query)):
-            $total += $row['price'];
+          <?php 
+          while ($row = mysqli_fetch_assoc($query)):
+            $qty = $_SESSION['cart'][$row['id']];
+            $subtotal = $row['price'] * $qty;
+            $total += $subtotal;
           ?>
           <tr>
             <td class="cart-item-name"><?php echo htmlspecialchars($row['name']); ?></td>
             <td class="cart-price">Rp <?php echo number_format($row['price'], 0, ',', '.'); ?></td>
+            <td style="text-align: center; font-weight: 600; color: #9a8070;"><?php echo $qty; ?>x</td>
+            <td class="cart-price" style="color: var(--brown);">Rp <?php echo number_format($subtotal, 0, ',', '.'); ?></td>
             <td>
-              <a href="cart.php?remove=<?php echo $row['id']; ?>" class="cart-remove">✕ Hapus</a>
+              <a href="cart.php?remove=<?php echo $row['id']; ?>" class="cart-remove" onclick="return confirm('Hapus produk ini dari keranjang?')">✕ Hapus</a>
             </td>
           </tr>
           <?php endwhile; ?>
+          
           <tr class="cart-total-row">
-            <td><strong>Total Bayar</strong></td>
-            <td class="cart-price">Rp <?php echo number_format($total, 0, ',', '.'); ?></td>
-            <td></td>
+            <td colspan="3"><strong>Total Bayar</strong></td>
+            <td class="cart-price" colspan="2">Rp <?php echo number_format($total, 0, ',', '.'); ?></td>
           </tr>
         </tbody>
       </table>
@@ -143,7 +189,12 @@ if (isset($_GET['remove'])) {
 </div>
 
 <footer>
-  &copy; 2025 <span>PT Marlinjaya Mesin</span> · Mining Market · All rights reserved
+  <span>© <?php echo date('Y'); ?></span>
+  <a href="index.php">PT Marlin Jaya Mesin</a>
+  <span class="dot">·</span>
+  <span>Mining Market</span>
+  <span class="dot">·</span>
+  <span>All rights reserved</span>
 </footer>
 
 <script src="../js/navbar.js"></script>
@@ -153,9 +204,14 @@ function toggleMenu() {
   document.getElementById('hamburger').classList.toggle('open');
   document.getElementById('mobileMenu').classList.toggle('open');
 }
+
 <?php if (isset($_GET['added'])): ?>
-window.addEventListener('load', () => showToast('Produk ditambahkan ke keranjang! 🛒'));
+window.addEventListener('load', () => {
+  if (typeof showToast === 'function') {
+    showToast('Produk ditambahkan ke keranjang! 🛒');
+  }
+});
 <?php endif; ?>
 </script>
 </body>
-</html>
+</html> -->
