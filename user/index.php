@@ -57,14 +57,14 @@ if (!isset($_SESSION['user_id'])) {
   <div class="hero-bg"></div>
   <div class="hero-glow"></div>
   <div class="hero-content">
-    <div class="hero-badge">Platform Alat Tambang #1</div>
+    <div class="hero-badge">Platform Sparepart No1</div>
     <h1>PT MARLIN<br><span class="gold">JAYA</span><br>MESIN</h1>
     <div class="hero-sub">
       <span id="typed-text" data-words="Industrial Equipment|Alat Berat Tambang|Mesin Bersertifikat"></span>
     </div>
     <p class="hero-desc">
       Halo, <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>.
-      Tingkatkan efisiensi operasional tambang Anda dengan armada mesin tangguh, bersertifikat, dan teknologi terkini.
+      Tingkatkan efisiensi operasional Anda dengan armada mesin tangguh, bersertifikat, dan teknologi terkini.
     </p>
     <div class="hero-actions">
       <a href="products.php" class="btn-primary">Lihat Katalog →</a>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <section class="section">
   <div class="section-label reveal">Keunggulan Kami</div>
-  <h2 class="section-title reveal">Kenapa Memilih<br>Mining Market?</h2>
+  <h2 class="section-title reveal">Kenapa Memilih<br>PT MARLIN JAYA MESIN?</h2>
   <p class="section-sub reveal">Kami memberikan standar baru dalam industri alat berat tambang Indonesia.</p>
 
   <div class="features-grid reveal-group reveal">
@@ -138,7 +138,7 @@ if (!isset($_SESSION['user_id'])) {
 <div class="cta-banner reveal">
   <div class="cta-text">
     <h2>Siap Tingkatkan Operasional?</h2>
-    <p>Jelajahi ratusan unit mesin tambang pilihan kami sekarang juga.</p>
+    <p>Jelajahi ratusan unit sparepart pilihan kami sekarang juga.</p>
   </div>
   <a href="products.php" class="btn-primary" style="white-space: nowrap;">Lihat Semua Produk →</a>
 </div>

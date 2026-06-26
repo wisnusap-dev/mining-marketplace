@@ -80,7 +80,7 @@ $email_body    = urlencode("Halo Tim PT Marlin Jaya Mesin,\n\nSaya tertarik deng
     
     <div class="cta-box" style="background:var(--brown); padding:20px; border-radius:15px; color:#fff;">
       <h3>Tertarik dengan produk ini?</h3>
-      <a href="https://wa.me/<?php echo $company_wa; ?>?text=<?php echo $wa_msg; ?>" target="_blank" class="btn-wa">Chat via WhatsApp</a>
+      <a href="https://wa.me/6281234567890<?php echo $company_wa; ?>?text=<?php echo $wa_msg; ?>" target="_blank" class="btn-wa">Chat via WhatsApp</a>
       <a href="mailto:<?php echo $company_email; ?>?subject=<?php echo $email_subject; ?>&body=<?php echo $email_body; ?>" style="color:#fff; text-align:center; display:block;">Atau kirim Email</a>
     </div>
   </div>

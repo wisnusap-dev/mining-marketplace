@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
       <div class="info-icon">📍</div>
       <div class="info-text">
         <strong>Alamat Kantor</strong>
-        <span>Universitas Pamulang,<br>Tangerang Selatan</span>
+        <span>Jl. Raya Perancis, Komp. Ruko Mutiara Kosambi 2 Blok A No. 42,<br>Tangerang</span>
       </div>
     </div>
     <div class="info-item">
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
     <div class="hours-row"><span>Sabtu</span><span>08.00 – 13.00 WIB</span></div>
     <div class="hours-row"><span>Minggu</span><span style="color:#e07a7a;">Tutup</span></div>
 
-    <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="wa-btn">
+    <a href="https://wa.me/6288213717459" target="_blank" rel="noopener" class="wa-btn">
       💬 Chat di WhatsApp Sekarang
     </a>
   </div>

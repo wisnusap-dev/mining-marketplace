@@ -14,7 +14,7 @@ if (isset($_POST['register'])) {
     $nama_lengkap = mysqli_real_escape_string($conn, trim($_POST['nama_lengkap'] ?? ''));
     $no_telepon   = mysqli_real_escape_string($conn, trim($_POST['no_telepon'] ?? ''));
 
-    // Validasi — nama_lengkap tidak wajib (menyesuaikan struktur DB)
+    // Validasi
     if (empty($username) || empty($email) || empty($password)) {
         $error = "Username, email, dan password wajib diisi.";
     } elseif (strlen($username) < 4) {
@@ -26,46 +26,44 @@ if (isset($_POST['register'])) {
     } elseif ($password !== $confirm) {
         $error = "Password dan konfirmasi tidak cocok.";
     } else {
-        // Cek duplikat
-        $cek = mysqli_query($conn, "SELECT id_user FROM users WHERE username='$username' OR email='$email'");
-        if (mysqli_num_rows($cek) > 0) {
-            $error = "Username atau email sudah digunakan.";
-        } else {
-            $hashed = password_hash($password, PASSWORD_DEFAULT);
-
-            // Coba INSERT lengkap dulu (dengan semua kolom yang ada di DB kamu)
-            $q = mysqli_query($conn,
-                "INSERT INTO users (username, email, password, nama_lengkap, no_telepon)
-                 VALUES ('$username', '$email', '$hashed', '$nama_lengkap', '$no_telepon')"
-            );
-
-            // Fallback 1: tanpa no_telepon
-            if (!$q) {
-                $q = mysqli_query($conn,
-                    "INSERT INTO users (username, email, password, nama_lengkap)
-                     VALUES ('$username', '$email', '$hashed', '$nama_lengkap')"
-                );
-            }
-
-            // Fallback 2: hanya 3 kolom utama
-            if (!$q) {
-                $q = mysqli_query($conn,
-                    "INSERT INTO users (username, email, password)
-                     VALUES ('$username', '$email', '$hashed')"
-                );
-            }
-
-            if ($q) {
-                $new_id = mysqli_insert_id($conn);
-                $_SESSION['user_id']  = $new_id;
-                $_SESSION['username'] = $username;
-                header("Location: user/index.php");
-                ob_end_flush();
-                exit();
+        // Cek duplikat (pakai SELECT * biar nggak error kalau nama kolom ID beda)
+        try {
+            $cek = mysqli_query($conn, "SELECT * FROM users WHERE username='$username' OR email='$email'");
+            if (mysqli_num_rows($cek) > 0) {
+                $error = "Username atau email sudah digunakan.";
             } else {
-                // Tampilkan error MySQL yang sebenarnya agar mudah debug
-                $error = "Gagal daftar: " . mysqli_error($conn);
+                $hashed = password_hash($password, PASSWORD_DEFAULT);
+                $q = false;
+
+                // TRY-CATCH: Logika pendaftaran yang kebal dari error kolom database
+                try {
+                    // Percobaan 1: Insert lengkap
+                    $q = mysqli_query($conn, "INSERT INTO users (username, email, password, nama_lengkap, no_telepon) VALUES ('$username', '$email', '$hashed', '$nama_lengkap', '$no_telepon')");
+                } catch (mysqli_sql_exception $e1) {
+                    try {
+                        // Percobaan 2: Insert tanpa no_telepon
+                        $q = mysqli_query($conn, "INSERT INTO users (username, email, password, nama_lengkap) VALUES ('$username', '$email', '$hashed', '$nama_lengkap')");
+                    } catch (mysqli_sql_exception $e2) {
+                        try {
+                            // Percobaan 3: Insert paling basic (cuma 3 kolom utama)
+                            $q = mysqli_query($conn, "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed')");
+                        } catch (mysqli_sql_exception $e3) {
+                            $error = "Gagal daftar, struktur tabel database tidak sesuai: " . $e3->getMessage();
+                        }
+                    }
+                }
+
+                if ($q) {
+                    $new_id = mysqli_insert_id($conn);
+                    $_SESSION['user_id']  = $new_id;
+                    $_SESSION['username'] = $username;
+                    header("Location: user/index.php");
+                    ob_end_flush();
+                    exit();
+                }
             }
+        } catch (mysqli_sql_exception $e) {
+            $error = "Koneksi database bermasalah: " . $e->getMessage();
         }
     }
 }
@@ -345,14 +343,12 @@ if (isset($_POST['register'])) {
 </head>
 <body>
 
-<!-- LOADER -->
 <div id="loader">
   <div class="ld-gear">⚙️</div>
   <div class="ld-brand">Mining Market</div>
   <div class="ld-bar"><div class="ld-fill"></div></div>
 </div>
 
-<!-- LEFT -->
 <div class="panel-left">
   <div class="deco-ring r1"></div>
   <div class="deco-ring r2"></div>
@@ -387,12 +383,10 @@ if (isset($_POST['register'])) {
   </div>
 </div>
 
-<!-- RIGHT -->
 <div class="panel-right">
   <div class="auth-box">
 
     <?php if ($success): ?>
-    <!-- ══ SUCCESS STATE ══ -->
     <div class="success-state">
       <div class="success-icon">🎉</div>
       <h3>Pendaftaran Berhasil!</h3>
@@ -401,7 +395,6 @@ if (isset($_POST['register'])) {
     </div>
 
     <?php else: ?>
-    <!-- ══ REGISTER FORM ══ -->
     <div class="eyebrow">Bergabung Gratis</div>
     <h2>Buat Akun</h2>
     <p class="subtitle">Daftar dalam hitungan detik. Kolom <span style="color:var(--gold);font-weight:700;">*</span> wajib diisi.</p>
@@ -410,7 +403,6 @@ if (isset($_POST['register'])) {
     <div class="alert alert-error">⚠️ <span><?php echo htmlspecialchars($error); ?></span></div>
     <?php endif; ?>
 
-    <!-- GOOGLE REGISTER -->
     <a href="auth/google.php?mode=register" class="btn-google">
       <svg width="18" height="18" viewBox="0 0 18 18">
         <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
@@ -424,8 +416,8 @@ if (isset($_POST['register'])) {
     <div class="or-div"><span>atau daftar manual</span></div>
 
     <form method="POST" id="regForm" novalidate>
+      <input type="hidden" name="register" value="1">
 
-      <!-- Nama & Telepon -->
       <div class="form-row">
         <div class="form-group">
           <label>Nama Lengkap <span class="req">*</span></label>
@@ -447,7 +439,6 @@ if (isset($_POST['register'])) {
         </div>
       </div>
 
-      <!-- Email -->
       <div class="form-group">
         <label>Email <span class="req">*</span></label>
         <div class="input-wrap">
@@ -461,7 +452,6 @@ if (isset($_POST['register'])) {
 
       <div class="section-divider"><span>Info Akun</span></div>
 
-      <!-- Username -->
       <div class="form-group">
         <label>Username <span class="req">*</span></label>
         <div class="input-wrap">
@@ -474,7 +464,6 @@ if (isset($_POST['register'])) {
         <div class="hint" id="userHint">Huruf kecil, angka, underscore. Tidak bisa diubah.</div>
       </div>
 
-      <!-- Password & Konfirmasi -->
       <div class="form-row">
         <div class="form-group">
           <label>Password <span class="req">*</span></label>
@@ -497,7 +486,6 @@ if (isset($_POST['register'])) {
         </div>
       </div>
 
-      <!-- Terms -->
       <div class="terms-check">
         <input type="checkbox" id="terms" name="terms" required>
         <label for="terms">
@@ -506,7 +494,7 @@ if (isset($_POST['register'])) {
         </label>
       </div>
 
-      <button type="submit" name="register" class="btn-submit" id="subBtn">
+      <button type="submit" class="btn-submit" id="subBtn">
         Buat Akun Sekarang →
       </button>
     </form>
@@ -520,12 +508,10 @@ if (isset($_POST['register'])) {
 </div>
 
 <script>
-// ── Loader ─────────────────────────────────────────────
 window.addEventListener('load', () => {
   setTimeout(() => document.getElementById('loader').classList.add('out'), 600);
 });
 
-// ── Eye toggle ─────────────────────────────────────────
 function tog(id, btnId) {
   const inp = document.getElementById(id);
   const btn = document.getElementById(btnId);
@@ -533,7 +519,6 @@ function tog(id, btnId) {
   else { inp.type = 'password'; btn.textContent = '👁'; }
 }
 
-// ── Password strength ──────────────────────────────────
 const pwInp  = document.getElementById('f_pw');
 const cpwInp = document.getElementById('f_cpw');
 const pwFill = document.getElementById('pwFill');
@@ -578,7 +563,6 @@ function checkMatch() {
   cpwInp.classList.toggle('bad', !ok);
 }
 
-// ── Username: huruf kecil saja ─────────────────────────
 const uInp = document.getElementById('f_user');
 if (uInp) {
   uInp.addEventListener('input', () => {
@@ -586,7 +570,6 @@ if (uInp) {
   });
 }
 
-// ── Client-side submit validation ─────────────────────
 document.getElementById('regForm')?.addEventListener('submit', function(e) {
   const un  = uInp.value;
   const pw  = pwInp.value;
@@ -600,7 +583,10 @@ document.getElementById('regForm')?.addEventListener('submit', function(e) {
 
   const btn = document.getElementById('subBtn');
   btn.textContent = 'Memproses...';
-  btn.disabled = true;
+  
+  // Dibungkus timeout biar form tetep terkirim
+  setTimeout(() => { btn.disabled = true; }, 10);
+  
   setTimeout(() => {
     btn.disabled = false;
     btn.style.opacity = '1';
@@ -618,7 +604,6 @@ function flashErr(msg) {
   d.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 
-// ── Input focus micro-animation ────────────────────────
 document.querySelectorAll('.input-wrap input').forEach(inp => {
   inp.addEventListener('focus',  () => { inp.closest('.input-wrap').style.transform='scale(1.008)'; inp.closest('.input-wrap').style.transition='.15s ease'; });
   inp.addEventListener('blur',   () => { inp.closest('.input-wrap').style.transform=''; });
