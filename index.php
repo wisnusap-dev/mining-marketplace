@@ -1,11 +1,6 @@
 <?php
-session_start();
-include "../config/database.php";
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php");
-    exit();
-}
+// PERBAIKAN 1: Hapus tanda ../ karena file sudah di root
+include "config/database.php";
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -14,9 +9,11 @@ if (!isset($_SESSION['user_id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PT.MARLIN JAYA MESIN — Mining Market</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/navbar.css">
-  <link rel="stylesheet" href="../css/home.css">
-  <link rel="stylesheet" href="../css/user_fx.css">
+  
+  <!-- PERBAIKAN 2: Hapus tanda ../ pada semua file CSS -->
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/user_fx.css">
 </head>
 <body>
 
@@ -37,7 +34,7 @@ if (!isset($_SESSION['user_id'])) {
     <li><a href="products.php">Products</a></li>
     <li><a href="about.php">About</a></li>
     <li><a href="contact.php">Contact</a></li>
-    <li><a href="../logout.php" class="logout-btn">Logout</a></li>
+    <!-- Tombol Login/Logout telah dihapus sesuai konsep Company Profile -->
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -49,7 +46,7 @@ if (!isset($_SESSION['user_id'])) {
   <a href="products.php">Products</a>
   <a href="about.php">About</a>
   <a href="contact.php">Contact Us</a>
-  <a href="../logout.php" class="m-logout">Logout</a>
+  <!-- Tombol Login/Logout Mobile telah dihapus -->
 </div>
 
 <section class="hero">
@@ -63,9 +60,9 @@ if (!isset($_SESSION['user_id'])) {
       <span id="typed-text" data-words="Industrial Equipment|Alat Berat Tambang|Mesin Bersertifikat"></span>
     </div>
     <p class="hero-desc">
-      Halo, <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>.
-      Tingkatkan efisiensi operasional Anda dengan armada mesin tangguh, bersertifikat, dan teknologi terkini.
-    </p>
+  Selamat Datang di Website Resmi <strong>PT Marlin Jaya Mesin</strong>.
+  Tingkatkan efisiensi operasional Anda dengan armada mesin tangguh, bersertifikat, dan teknologi terkini.
+</p>
     <div class="hero-actions">
       <a href="products.php" class="btn-primary">Lihat Katalog →</a>
       <a href="about.php" class="btn-secondary">Tentang Kami</a>
@@ -147,8 +144,9 @@ if (!isset($_SESSION['user_id'])) {
   &copy; 2025 <span>PT Marlin Jaya Mesin</span> · Mining Market · All rights reserved
 </footer>
 
-<script src="../js/navbar.js"></script>
-<script src="../js/user.js"></script>
+<!-- PERBAIKAN 5: Hapus tanda ../ pada script JS -->
+<script src="js/navbar.js"></script>
+<script src="js/user.js"></script>
 <script>
 function toggleMenu() {
   document.getElementById('hamburger').classList.toggle('open');

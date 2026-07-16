@@ -1,11 +1,5 @@
 <?php
-session_start();
-include "../config/database.php";
-
-if (!isset($_SESSION['user_id'])) { 
-    header("Location: ../login.php"); 
-    exit(); 
-}
+include "config/database.php";
 
 $success = false;
 $error   = '';
@@ -15,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
     $email  = trim($_POST['email'] ?? '');
     $pesan  = trim($_POST['pesan'] ?? '');
     if ($nama && $email && $pesan) {
+        // Logika sukses (jika ada query insert ke tabel contacts bisa diletakkan di sini)
         $success = true;
     } else {
         $error = "Semua kolom wajib diisi.";
@@ -28,9 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us — Mining Market</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/navbar.css">
-  <link rel="stylesheet" href="../css/contact.css">
-  <link rel="stylesheet" href="../css/user_fx.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="css/user_fx.css">
 </head>
 <body>
 
@@ -51,8 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
     <li><a href="products.php">Products</a></li>
     <li><a href="about.php">About</a></li>
     <li><a href="contact.php" class="active">Contact</a></li>
-    <!-- <li><a href="cart.php">🛒 Keranjang</a></li> -->
-    <li><a href="../logout.php" class="logout-btn">Logout</a></li>
+    <!-- Tombol Keranjang dan Logout dihapus -->
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -64,8 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
   <a href="products.php">Products</a>
   <a href="about.php">About</a>
   <a href="contact.php">Contact Us</a>
-  <a href="cart.php">🛒 Keranjang</a>
-  <a href="../logout.php" class="m-logout">Logout</a>
+  <!-- Tombol Keranjang dan Logout Mobile dihapus -->
 </div>
 
 <div class="page-hero reveal">
@@ -163,8 +156,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kirim'])) {
   <span>All rights reserved</span>
 </footer>
 
-<script src="../js/navbar.js"></script>
-<script src="../js/user.js"></script>
+<!-- PERBAIKAN: Hapus tanda ../ pada script JS -->
+<script src="js/navbar.js"></script>
+<script src="js/user.js"></script>
 <script>
 function toggleMenu() {
   document.getElementById('hamburger').classList.toggle('open');

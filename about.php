@@ -1,6 +1,5 @@
 <?php
-session_start();
-include "../config/database.php";
+include "config/database.php";
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -9,9 +8,9 @@ include "../config/database.php";
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us — Mining Market</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/navbar.css">
-  <link rel="stylesheet" href="../css/about.css">
-  <link rel="stylesheet" href="../css/user_fx.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/user_fx.css">
 </head>
 <body>
 
@@ -25,7 +24,6 @@ include "../config/database.php";
 
 <nav class="navbar">
   <a href="index.php" class="nav-logo">
-    <img src="../logo/companies.png" alt="Logo">
     <span class="nav-brand">Mining Market</span>
   </a>
   <ul class="nav-links">
@@ -33,8 +31,7 @@ include "../config/database.php";
     <li><a href="products.php">Products</a></li>
     <li><a href="about.php" class="active">About</a></li>
     <li><a href="contact.php">Contact</a></li>
-    <!-- <li><a href="cart.php">🛒 Keranjang</a></li> -->
-    <li><a href="../logout.php" class="logout-btn">Logout</a></li>
+    <!-- Tombol Keranjang dan Logout dihapus -->
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -46,8 +43,7 @@ include "../config/database.php";
   <a href="products.php">Products</a>
   <a href="about.php">About</a>
   <a href="contact.php">Contact Us</a>
-  <a href="cart.php">🛒 Keranjang</a>
-  <a href="../logout.php" class="m-logout">Logout</a>
+  <!-- Menu Keranjang dan Logout Mobile dihapus -->
 </div>
 
 <div class="about-wrapper">
@@ -65,8 +61,9 @@ include "../config/database.php";
   </div>
 
   <div class="scroll-gallery-container">
+    <!-- PERBAIKAN: Hapus ../ pada data-src gambar -->
     <div class="gallery-item reveal">
-      <img data-src="../images/Team/saham.jpg"
+      <img data-src="images/Team/saham.jpg"
            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
            alt="Pemegang Saham">
       <div class="gallery-overlay">
@@ -76,7 +73,7 @@ include "../config/database.php";
     </div>
 
     <div class="gallery-item reveal">
-      <img data-src="../images/Team/team2.jpg"
+      <img data-src="images/Team/team2.jpg"
            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
            alt="Perusahaan Aktif">
       <div class="gallery-overlay">
@@ -86,7 +83,7 @@ include "../config/database.php";
     </div>
 
     <div class="gallery-item reveal">
-      <img data-src="../images/Team/lokas.jpg"
+      <img data-src="images/Team/lokas.jpg"
            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
            alt="Lokasi">
       <div class="gallery-overlay">
@@ -96,7 +93,7 @@ include "../config/database.php";
     </div>
 
     <div class="gallery-item reveal">
-      <img data-src="../images/Team/badanhukum.jpg"
+      <img data-src="images/Team/badanhukum.jpg"
            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
            alt="Badan Hukum">
       <div class="gallery-overlay">
@@ -106,7 +103,7 @@ include "../config/database.php";
     </div>
 
     <div class="gallery-item reveal">
-      <img data-src="../images/Team/fakta.jpg"
+      <img data-src="images/Team/fakta.jpg"
            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
            alt="Import & Eksport">
       <div class="gallery-overlay">
@@ -118,11 +115,12 @@ include "../config/database.php";
 </div>
 
 <footer>
-  © <?php echo date('Y'); ?> <span>PT Marlin Jaya Mesin</span> · Mining Market · All rights reserved
+  &copy; <?php echo date('Y'); ?> <span>PT Marlin Jaya Mesin</span> · Mining Market · All rights reserved
 </footer>
 
-<script src="../js/navbar.js"></script>
-<script src="../js/user.js"></script>
+<!-- PERBAIKAN: Hapus ../ pada script JS -->
+<script src="js/navbar.js"></script>
+<script src="js/user.js"></script>
 <script>
 function toggleMenu() {
   document.getElementById('hamburger').classList.toggle('open');

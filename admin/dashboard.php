@@ -81,7 +81,7 @@
 
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-logo">
-        <img src="../logo/companies.png" alt="Logo">
+        <!-- <img src="../logo/companies.png" alt="Logo"> -->
         <div class="sidebar-logo-text">
           <span class="brand">Mining Market</span>
           <span class="sub">Admin Panel</span>

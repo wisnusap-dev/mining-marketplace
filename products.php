@@ -1,12 +1,5 @@
 <?php
-session_start();
-include "../config/database.php";
-
-// Proteksi halaman: jika user belum login, lempar ke login.php
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php");
-    exit();
-}
+include "config/database.php";
 
 // Mengambil data produk dari database
 $products = mysqli_query($conn, "SELECT * FROM products");
@@ -23,9 +16,9 @@ while ($r = mysqli_fetch_assoc($products)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produk — Mining Market</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/navbar.css">
-  <link rel="stylesheet" href="../css/product.css">
-  <link rel="stylesheet" href="../css/user_fx.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/product.css">
+  <link rel="stylesheet" href="css/user_fx.css">
 </head>
 <body>
 
@@ -47,7 +40,7 @@ while ($r = mysqli_fetch_assoc($products)) {
     <li><a href="products.php" class="active">Products</a></li>
     <li><a href="about.php">About</a></li>
     <li><a href="contact.php">Contact</a></li>
-    <li><a href="../logout.php" class="logout-btn">Logout</a></li>
+    <!-- Tombol Login/Logout dihapus -->
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -59,7 +52,7 @@ while ($r = mysqli_fetch_assoc($products)) {
   <a href="products.php">Products</a>
   <a href="about.php">About</a>
   <a href="contact.php">Contact Us</a>
-  <a href="../logout.php" class="m-logout">Logout</a>
+  <!-- Tombol Login/Logout Mobile dihapus -->
 </div>
 
 <!-- PAGE HEADER -->
@@ -104,7 +97,7 @@ while ($r = mysqli_fetch_assoc($products)) {
     <div class="product-card" data-name="<?php echo strtolower(htmlspecialchars($row['name'])); ?>">
       <div class="product-img-wrap" id="wrap-<?php echo $row['id']; ?>">
         <img class="product-img"
-             src="../images/products/<?php echo $row['image']; ?>"
+             src="images/products/<?php echo $row['image']; ?>"
              alt="<?php echo htmlspecialchars($row['name']); ?>"
              onload="this.closest('.product-img-wrap').classList.add('loaded')">
       </div>
@@ -120,8 +113,6 @@ while ($r = mysqli_fetch_assoc($products)) {
         <p class="product-desc" style="font-size: 0.9rem; color: #8a7060; margin-bottom: 20px; line-height: 1.5; min-height: 40px;">
           <?php echo htmlspecialchars($short_desc); ?>
         </p>
-        
-        <!-- Harga sudah dihapus total -->
         
         <!-- TOMBOL DIUBAH MENJADI DETAIL SAJA -->
         <div class="product-actions" style="display: flex; justify-content: center;">
@@ -142,20 +133,32 @@ while ($r = mysqli_fetch_assoc($products)) {
 
 <footer>&copy; <?php echo date('Y'); ?> <span>PT Marlin Jaya Mesin</span> · Mining Market</footer>
 
-<script src="../js/navbar.js"></script>
-<script src="../js/user.js"></script>
+<!-- PERBAIKAN: Hapus tanda ../ pada script JS -->
+<script src="js/navbar.js"></script>
+<script src="js/user.js"></script>
 <script>
 function toggleMenu() {
   document.getElementById('hamburger').classList.toggle('open');
   document.getElementById('mobileMenu').classList.toggle('open');
 }
 
-// Efek transisi dari Skeleton Loader ke Grid Produk Asli
+// Efek transisi dan menghilangkan layar loading
 window.addEventListener('load', () => {
+  // 1. Menghilangkan layar loading utama (user-loader)
+  const mainLoader = document.getElementById('user-loader');
+  if (mainLoader) {
+      mainLoader.style.transition = 'opacity 0.4s ease';
+      mainLoader.style.opacity = '0';
+      setTimeout(() => mainLoader.style.display = 'none', 400);
+  }
+
+  // 2. Transisi dari Skeleton Loader ke Grid Produk Asli
   setTimeout(() => {
     const skeleton = document.getElementById('skeletonGrid');
     if (skeleton) skeleton.style.display = 'none';
-    document.getElementById('productGrid').style.display = 'grid';
+    
+    const productGrid = document.getElementById('productGrid');
+    if (productGrid) productGrid.style.display = 'grid';
   }, 600);
 });
 
